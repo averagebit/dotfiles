@@ -1,13 +1,13 @@
 # https://git-scm.com/docs/git-config
 [user]
-	name = {{ .chezmoi.username }}
-	signingkey = ~/.ssh/id_ed25519_sk.pub
-	email = {{ .chezmoi.username }}@pm.me
+    name = {{ .chezmoi.username }}
+    signingkey = ~/.ssh/id_ed25519_sk.pub
+    email = {{ .chezmoi.username }}@pm.me
 [init]
-	defaultbranch = main
+    defaultbranch = main
 [commit]
     template = ~/.config/git/commit-message
-	gpgsign = true
+    gpgsign = true
 [pull]
     rebase = false
 [push]
@@ -18,20 +18,20 @@
 [branch]
     sort = -committerdate
 [tag]
-	gpgsign = true
+    gpgsign = true
     sort = -v:refname
 [gpg]
-	format = ssh
+    format = ssh
 [gpg "ssh"]
     allowedSignersFile = ~/.ssh/allowed_signers
 [core]
-	excludesfile = ~/.config/git/ignore
-	editor = vi
+    excludesfile = ~/.config/git/ignore
+    editor = vi
     pager = less
 [web]
-	browser = firefox
+    browser = firefox
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true

@@ -14,8 +14,8 @@
         /* "clock#date",  */
         /* "clock#time",  */
         /* "cpu",  */
-        "pulseaudio", 
-        "network", 
+        "pulseaudio",
+        "network",
         "battery",
     ],
     "sway/workspaces": {

@@ -12,7 +12,7 @@ set $right l
 # Terminal emulator
 set $term /usr/bin/alacritty
 
-# Application launcher 
+# Application launcher
 # Note: pass the final command to swaymsg so that the resulting window
 # can be opened on the original workspace that the command was run on.
 # set $menu dmenu_path | dmenu | xargs swaymsg exec --
@@ -177,7 +177,7 @@ bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86Search exec $menu
 
 # Push to talk
-# (0=unmute, 1=mute, toggle=flip current state) 
+# (0=unmute, 1=mute, toggle=flip current state)
 bindsym XF86Calculator exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ 0
 bindsym --release XF86Calculator exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ 1
 
