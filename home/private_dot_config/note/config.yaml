@@ -1,0 +1,6 @@
+vault:
+  dir: ~/Documents/Notes
+  name: Notes
+vaults:
+  - dir: ~/Documents/Notes
+    name: Notes

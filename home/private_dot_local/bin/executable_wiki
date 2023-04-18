@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+open "https://en.wikipedia.org/wiki/Special:Search/$(urlencode "$*")"
+

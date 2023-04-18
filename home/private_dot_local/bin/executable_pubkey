@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+path="${HOME}/.ssh/id_ed25519_sk.pub"
+yank "${path}" && exec cat "${path}"
+

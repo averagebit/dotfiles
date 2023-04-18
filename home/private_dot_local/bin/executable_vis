@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+SCRIPTS="${HOME}/.local/bin"
+
+vis::check() {
+    exec shellcheck "${SCRIPTS}/$1"
+}
+
+vis::new() {
+    local path="${SCRIPTS}/$1"
+    touch "${path}"
+    printf "#!/usr/bin/env bash\n\n" > "${path}"
+    chmod u+x "${path}"
+    vi "${path}"
+    chezmoi add "${path}"
+    vis::check "${path}"
+}
+
+vis::edit() {
+    chezmoi edit "${SCRIPTS}/$1"
+    exec chezmoi apply
+}
+
+vis::remove() {
+    exec chezmoi --interactive rm "${SCRIPTS}/$1"
+}
+
+case "$1" in
+    check)
+        shift;
+        vis::check "$@";
+        ;;
+    new)
+        shift;
+        vis::new "$1";
+        ;;
+    rm)
+        shift;
+        vis::remove "$1";
+        ;;
+    *)
+        vis::edit "$1";
+        ;;
+esac
+

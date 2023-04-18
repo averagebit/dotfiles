@@ -1,0 +1,15 @@
+{{- if .headless }}
+.config/alacritty/
+.config/gammastep/
+.config/mpv/
+.config/code-flags.conf
+.config/electron-flags.conf
+.config/electron13-flags.conf
+.local/share/applications/
+.local/share/wallpapers/
+{{- end }}
+{{- if (and (eq .chezmoi.os "linux") (not .swaywm)) }}
+.config/sway/
+.config/waybar/
+.config/swayimg/
+{{- end }}

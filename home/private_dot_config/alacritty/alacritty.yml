@@ -1,0 +1,34 @@
+import:
+  - ~/.config/alacritty/themes/catppuccin-mocha.yml
+
+alt_send_esc: true
+live_config_reload: true
+draw_bold_text_with_bright_colors: true
+
+env:
+  TERM: xterm-256color
+
+window:
+  opacity: 0.95
+  decorations: none
+  startup_mode: Windowed
+
+selection:
+  save_to_clipboard: true
+
+url:
+  launcher:
+    program: open
+    args: []
+  modifiers: None
+
+mouse:
+  hide_when_typing: true
+
+key_bindings:
+  - { key: Return, mods: Control, action: ToggleFullscreen }
+
+font:
+  normal:
+    family: Hack Nerd Font
+  size: 10

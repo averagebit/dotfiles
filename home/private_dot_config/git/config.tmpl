@@ -1,0 +1,37 @@
+# https://git-scm.com/docs/git-config
+[user]
+	name = {{ .chezmoi.username }}
+	signingkey = ~/.ssh/id_ed25519_sk.pub
+	email = {{ .chezmoi.username }}@pm.me
+[init]
+	defaultbranch = main
+[commit]
+    template = ~/.config/git/commit-message
+	gpgsign = true
+[pull]
+    rebase = false
+[push]
+    default = current
+    autoSetupRemote = true
+[merge]
+    conflictstyle = diff3
+[branch]
+    sort = -committerdate
+[tag]
+	gpgsign = true
+    sort = -v:refname
+[gpg]
+	format = ssh
+[gpg "ssh"]
+    allowedSignersFile = ~/.ssh/allowed_signers
+[core]
+	excludesfile = ~/.config/git/ignore
+	editor = vi
+    pager = less
+[web]
+	browser = firefox
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

@@ -1,0 +1,49 @@
+{{- /* Checks if running interactively */ -}}
+{{- $interactive := stdinIsATTY -}}
+
+{{- /* Template file for chezmoi config file */ -}}
+{{- $headless := false -}}{{/* true if this machine does not have a screen and keyboard */}}
+{{- $swaywm := false -}}{{/* true if this machine is using swaywm */}}
+{{- $agekey := false -}}{{/* true if this machine has agekey to decrypt secret */}}
+
+{{- $hostname := .chezmoi.hostname -}}
+{{- if eq $hostname "echo" -}}
+{{-   $headless = false -}}
+{{-   $swaywm = true -}}
+{{-   $agekey = true -}}
+{{- end -}}
+{{- if hasKey . "headless" -}}
+{{-   $headless = .headless -}}
+{{- else if $interactive -}}
+{{-   $headless = promptBool "headless" -}}
+{{- end -}}
+{{- if hasKey . "agekey" -}}
+{{-   $agekey = .agekey -}}
+{{- else if $interactive -}}
+{{-   $agekey = promptBool "agekey" -}}
+{{- end -}}
+
+{{- if $interactive -}}
+{{-   writeToStdout "💡 Tip: you can re-enter your data with `chezmoi init --data=false`.\n" -}}
+{{- end -}}
+
+data:
+  headless: {{ $headless }}
+  swaywm: {{ $swaywm }}
+  agekey: {{ $agekey }}
+
+sourceDir: /home/{{ .chezmoi.username }}/.dot
+format: yaml
+merge:
+  command: nvim
+  args:
+    - -d
+    - "{{ "{{ .Destination }}" }}"
+    - "{{ "{{ .Source }}" }}"
+    - "{{ "{{ .Target }}" }}"
+encryption: age
+{{- if $agekey }}
+age:
+  identity: /home/{{ .chezmoi.username }}/.config/sops/age/keys.txt
+  recipient: age15q6fs2wydw93x9unl50m77y8vez9gptsv5tn3v9jesawp53ntprsl360dv
+{{- end }}

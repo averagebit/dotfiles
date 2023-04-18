@@ -1,0 +1,21 @@
+set completion-ignore-case on
+
+"\C-j": menu-complete
+"\C-k": menu-complete-backward
+
+"\C-n": menu-complete
+"\C-p": menu-complete-backward
+
+"\C-l": forward-word
+"\C-h": backward-word
+
+"\C-k": history-search-backward
+"\C-j": history-search-forward
+
+"\C-p": history-search-backward
+"\C-n": history-search-forward
+
+"\e[A": history-search-backward 
+"\e[B": history-search-forward
+
+"\C-Rubout": backward-kill-word

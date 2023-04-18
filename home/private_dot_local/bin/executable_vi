@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+function exists() {
+    type "$1" &>/dev/null
+}
+
+if exists "${EDITOR}"; then
+    exec "${EDITOR}" "$@"
+elif exists nvim; then
+    exec nvim "$@"
+elif exists vim; then
+    exec vim "$@"
+elif exists /usr/bin/vi; then
+    exec /usr/bin/vi "$@"
+else
+    exec nano "$@"
+fi
+

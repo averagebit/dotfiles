@@ -1,0 +1,95 @@
+// https://github.com/Alexays/Waybar/wiki/Configuration
+{
+    "layer": "top",
+    "position": "bottom",
+    "modules-left": [
+        "sway/workspaces",
+        "sway/mode"
+    ],
+    "modules-center": [
+    ],
+    "modules-right": [
+        "tray",
+        /* "sway/language", */
+        /* "clock#date",  */
+        /* "clock#time",  */
+        /* "cpu",  */
+        "pulseaudio", 
+        "network", 
+        "battery",
+    ],
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "disable-click": true
+    },
+    "tray": {
+        "spacing": 4,
+        "icon-size": 10
+    },
+    "clock#date": {
+        "format": " {:%e %b %Y}",
+        "tooltip-format": "{:%e %B %Y}"
+    },
+    "clock#time": {
+        "interval": 60,
+        "format": "{:%H:%M}"
+    },
+    "cpu": {
+        "format": " {usage}%"
+    },
+    "memory": {
+        "format": " {}%"
+    },
+    "temperature": {
+        "critical-threshold": 75,
+        "format": " {temperatureC}°C"
+    },
+    "battery": {
+        "bat": "BAT0",
+        "full-at": 95,
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon}  {capacity}% ",
+        "format-charging": "{icon}  {capacity}% ﮣ ",
+        "format-plugged": "{icon}  {capacity}% ﮣ ",
+        "format-full": "{icon} ",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "network": {
+        "format-wifi": " ",
+        "tooltip-format-wifi": " {essid} {ipaddr} ({signalStrength}%)",
+        "format-ethernet": " ",
+        "tooltip-format-ethernet": "{ipaddr}",
+        "format-disconnected": "睊"
+    },
+    "pulseaudio": {
+        "format": "{format_source} {icon}",
+        "format-muted": "",
+        "format-source": "",
+        // "format-source-muted": "",
+        "format-source-muted": "",
+        "tooltip-format": "{icon} {volume}%",
+        "format-icons": {
+            "headphone": "",
+            "default": ["", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+    "sway/language": {
+        "format": "⌨ {} "
+    },
+    "sway/mode": {
+        "format": "<span>⚡️ {}</span>",
+        "tooltip": false
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": "🔓"
+        }
+    }
+}

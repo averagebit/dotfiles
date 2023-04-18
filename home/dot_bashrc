@@ -1,0 +1,236 @@
+#!/bin/bash
+
+set -o vi
+umask 0037
+
+# ----------------------------------------------------------------------
+# --- Variables
+#
+# General
+export TERM="xterm-256color"
+export HRULEWIDTH=73
+export EDITOR_PREFIX="nvim"
+export EDITOR="nvim"
+export VISUAL="nvim"
+export CLICOLOR=1
+# export GPG_TTY="$(tty)"
+export PAGER="less"
+export XDG_CACHE_HOME="${HOME}/.cache"
+export XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_DATA_HOME="${HOME}/.local/share"
+export HISTFILE="$XDG_DATA_HOME/history"
+export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
+export INPUTRC="${XDG_CONFIG_HOME}/shell/inputrc"
+export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}/npm"
+export HISTCONTROL=ignoreboth
+export LESSHISTFILE="-"
+
+# User
+export USER="$(whoami)"
+export GITUSER="${USER}"
+export DOT="${HOME}/.config/dot"
+export SCRIPTS="${DOT}/bin"
+export WORKSPACE="${HOME}/Workspace"
+export REPOS="${WORKSPACE}/repos"
+export GHREPOS="${REPOS}/github.com"
+export GLREPOS="${REPOS}/gitlab.com"
+export NOTES="${HOME}/Documents/Notes"
+export DESKTOP="${HOME}/Desktop"
+export DOCUMENTS="${HOME}/Documents"
+export DOWNLOADS="${HOME}/Downloads"
+export GAMES="${HOME}/Games"
+export MUSIC="${HOME}/Music"
+export PICTURES="${HOME}/Pictures"
+export PUBLIC="${HOME}/Public"
+export TEMPLATES="${HOME}/Templates"
+export VIDEOS="${HOME}/Videos"
+export TMPDIR="/tmp"
+
+# Wayland
+export QT_QPA_PLATFORM=wayland
+export XDG_CURRENT_DESKTOP=sway
+export XDG_SESSION_DESKTOP=sway
+
+# Rust
+export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+export RUSTUP_HOME="${XDG_DATA_HOME}/rust"
+
+# Go
+export GOPATH="${XDG_DATA_HOME}/go"
+export GOBIN="${XDG_DATA_HOME}/go/bin"
+
+# Docker
+export DOCKER_CONTENT_TRUST=0
+
+# PNPM
+export PNPM_HOME="${XDG_DATA_HOME}/pnpm"
+
+# Kubernetes
+export KUBECONFIG="${HOME}/.kube/config"
+
+# ----------------------------------------------------------------------
+# --- Aliases
+alias '?'='duck'
+alias '??'='google'
+alias 'cd..'='cd ..'
+alias ls="/bin/ls -la --color"
+alias chmox="chmod u+x"
+alias temp="cd $(mktemp -d)"
+alias pn="pnpm"
+alias code="code --enable-features=WaylandWindowDecorations --ozone-platform-hint=auto"
+
+# ----------------------------------------------------------------------
+# --- Functions
+function _exists() {
+    type "$1" &>/dev/null
+}
+
+function reload() {
+    source "${HOME}/.bashrc"
+}
+
+function clone() {
+    local registry dirname bare repo dir
+    bare="true"
+    registry="github.com"
+    while [[ $# -gt 1 ]]; do
+        case "$1" in
+            -n) bare="false"; shift ;;
+            -d) dirname="$2"; shift; shift ;;
+            -l) registry="gitlab.com"; shift ;;
+        esac
+    done
+    repo="$1"
+    repo="${repo%.git}"
+    repo="${repo#git@github.com:}"
+    repo="${repo#git@gitlab.com:}"
+    repo="${repo#https://github.com/}"
+    repo="${repo#https://gitlab.com/}"
+    dir="${REPOS}/${registry}"
+    if [[ "${repo}" =~ / ]]; then
+        if [[ -z "${dirname}" ]]; then
+            dir="${dir}/${repo}"
+        else
+            dir="${dir}/${repo%/*}/${dirname}"
+        fi
+        repo="git@${registry}:${repo}"
+    else
+        if [[ -z "${dirname}" ]]; then
+            dir="${dir}/${GITUSER}/${repo}"
+        else
+            dir="${dir}/${GITUSER}/${dirname}"
+        fi
+        repo="git@${registry}:${GITUSER}/${repo}"
+    fi
+    if [[ "${bare}" == "true" ]]; then
+        mkdir -p "${dir}"
+        cd "${dir}" || return 1
+        if ! git clone --recursive --bare "${repo}" .repo; then
+            cd - || return 1
+            rm -r "${dir}"
+            return 1
+        fi
+        echo "gitdir: ./.repo" > .git
+        git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+        git fetch origin
+        if grep master <<< "$(git branch)"; then
+            git worktree add master
+            cd master || return 1
+        elif grep main <<< "$(git branch)"; then
+            git worktree add main
+            cd main || return 1
+        fi
+    else
+        git clone --recursive "${repo}" "${dir}"
+        cd "${dir}" || return 1
+    fi
+}
+
+function pathappend() {
+    declare arg
+    for arg in "$@"; do
+        test -d "$arg" || continue
+        PATH=${PATH//":$arg:"/:}
+        PATH=${PATH/#"$arg:"/}
+        PATH=${PATH/%":$arg"/}
+        export PATH="${PATH:+"$PATH:"}$arg"
+    done
+}
+
+function pathprepend() {
+    for arg in "$@"; do
+        test -d "$arg" || continue
+        PATH=${PATH//:"$arg:"/:}
+        PATH=${PATH/#"$arg:"/}
+        PATH=${PATH/%":$arg"/}
+        export PATH="$arg${PATH:+":${PATH}"}"
+    done
+}
+
+# ----------------------------------------------------------------------
+# --- PATH and CDPATH
+pathprepend \
+    "${HOME}/.nix-profile/bin" \
+    "${PNPM_HOME}" \
+    "${GOBIN}" \
+    "${HOME}/.local/bin"
+
+pathappend \
+    /usr/local/bin \
+    /usr/local/sbin \
+    /usr/local/games \
+    /usr/games \
+    /usr/sbin \
+    /usr/bin \
+    /snap/bin \
+    /sbin \
+    /bin
+
+export CDPATH=".:${REPOS}:${GHREPOS}:${GHREPOS}/${USER}:${GLREPOS}:${GLREPOS}/${USER}:${WORKSPACE}:${HOME}"
+
+# ----------------------------------------------------------------------
+# --- Prompt
+__prompt() {
+  local username='\u' hostname='\h' character='❯' status="$?" status_color \
+        git_branch format directory_prefix directory directory_suffix \
+        o='\[\e[1;30m\]' r='\[\e[1;31m\]' g='\[\e[1;32m\]' \
+        y='\[\e[1;33m\]' b='\[\e[1;34m\]' m='\[\e[1;35m\]' \
+        c='\[\e[1;36m\]' w='\[\e[1;37m\]' d='\[\e[0m\]'
+
+  status_color=${g}
+  directory="${b}${PWD##*/}${d}"
+  git_branch="$(git branch --show-current 2>/dev/null)"
+
+  [[ "${status}" != 0 ]] && status_color="${r}"
+  [[ "${PWD}" == / ]] && directory="${b}/${d}"
+  [[ "${PWD}" == "$HOME" ]] && directory="${b}~${d}"
+  [[ "${PWD}" != $HOME* ]] && directory_suffix="🔒"
+  [[ -n "${git_branch}" ]] && git_branch=" on${m}  ${git_branch}${d}"
+
+  format="\n${directory_prefix}${directory}${directory_suffix}${git_branch} \n${status_color}${character} ${d}"
+  PS1="${format}"
+}
+
+PROMPT_COMMAND="__prompt"
+
+# ----------------------------------------------------------------------
+# --- Dircolors
+if _exists dircolors; then
+    if [[ -r "${XDG_CONFIG_HOME}/shell/dircolors" ]]; then
+        eval "$(dircolors -b "${XDG_CONFIG_HOME}/shell/dircolors")"
+    else
+        eval "$(dircolors -b)"
+    fi
+fi
+
+# ----------------------------------------------------------------------
+# --- Bash completion
+if [[ -r "/usr/share/bash-completion/bash_completion" ]]; then
+    source "/usr/share/bash-completion/bash_completion"
+fi
+
+# ----------------------------------------------------------------------
+# --- Personal environment
+if [[ -r "${XDG_CONFIG_HOME}/shell/personal" ]]; then
+    source "${XDG_CONFIG_HOME}/shell/personal"
+fi

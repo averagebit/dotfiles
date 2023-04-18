@@ -1,0 +1,26 @@
+[Desktop Entry]
+Version=1.0
+Name=Google Chrome
+GenericName=Web Browser
+GenericName[en_GB]=Web Browser
+Comment[en_GB]=Access the Internet
+Exec=/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/chrome --file-forwarding com.google.Chrome --enable-features=UseOzonePlatform --ozone-platform=wayland @@u %U @@
+StartupNotify=true
+Terminal=false
+Icon=com.google.Chrome
+Type=Application
+Categories=Network;WebBrowser;
+MimeType=application/pdf;application/rdf+xml;application/rss+xml;application/xhtml+xml;application/xhtml_xml;application/xml;image/gif;image/jpeg;image/png;image/webp;text/html;text/xml;x-scheme-handler/http;x-scheme-handler/https;
+Actions=new-window;new-private-window;
+X-Flatpak-Tags=proprietary;
+X-Flatpak=com.google.Chrome
+
+[Desktop Action new-window]
+Name=New Window
+Name[en_GB]=New Window
+Exec=/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/chrome com.google.Chrome --enable-features=UseOzonePlatform --ozone-platform=wayland
+
+[Desktop Action new-private-window]
+Name=New Incognito Window
+Name[en_GB]=New Incognito window
+Exec=/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/chrome com.google.Chrome --enable-features=UseOzonePlatform --ozone-platform=wayland --incognito
