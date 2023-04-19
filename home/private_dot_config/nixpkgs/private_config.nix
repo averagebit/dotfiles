@@ -1,0 +1,83 @@
+{
+  allowUnfree = true;
+  packageOverrides = pkgs:
+    with pkgs; {
+      user = pkgs.buildEnv {
+        name = "user-packages";
+        paths = [
+          age
+          albert
+          awscli2
+          bind
+          cargo
+          chezmoi
+          clippy
+          curl
+          delve
+          fd
+          fluxcd
+          gammastep
+          gcc
+          gh
+          git
+          gnumake
+          go
+          go-task
+          golangci-lint
+          gzip
+          helm
+          htop
+          jq
+          kind
+          kubeconform
+          kubectl
+          kustomize
+          lm_sensors
+          lsof
+          mpv
+          neofetch
+          neovim
+          netlify-cli
+          nettools
+          nixfmt
+          nmap
+          nodejs
+          packer
+          pandoc
+          pciutils
+          perl
+          podman
+          pulumi-bin
+          ripgrep
+          rsync
+          rust-analyzer
+          rustc
+          rustfmt
+          shellcheck
+          smartmontools
+          sops
+          sshpass
+          stack
+          strace
+          stylua
+          swayimg
+          sysfsutils
+          tmux
+          traceroute
+          tree
+          tree-sitter
+          unrar
+          unzip
+          waybar
+          weechat
+          wget
+          whois
+          wl-clipboard
+          yq
+          zathura
+          zip
+        ];
+        # pathsToLink = [ "/bin" "/share" ];
+      };
+    };
+}
