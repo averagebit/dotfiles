@@ -98,13 +98,13 @@ return packer.startup(function(use)
     -- Tree Parser & Syntax Highlighting
     use({
         "nvim-treesitter/nvim-treesitter",
-        commit = "7ccb9a056fa43da243e3a439109c354c551c51b6",
+        commit = "cc360a9beb1b30d172438f640e2c3450358c4086",
     })
 
     -- Sticky Headers
     use({
         "nvim-treesitter/nvim-treesitter-context",
-        commit = "8d0759eb798fee2e1201b26c3279713ac67c44c2",
+        commit = "8b6861ebf0ba88e5f57796372eb194787705d25a",
     })
 
     -- Fuzzy Finder
@@ -122,7 +122,7 @@ return packer.startup(function(use)
     -- Git Client
     use({
         "tpope/vim-fugitive",
-        commit = "96c1009fcf8ce60161cc938d149dd5a66d570756",
+        commit = "e6651a79facf5cc2b7c554fdc19eb8a9fe89602c",
         cmd = { "Git" },
     })
 
