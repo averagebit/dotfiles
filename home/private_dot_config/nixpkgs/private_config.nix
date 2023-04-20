@@ -23,6 +23,7 @@
           gnumake
           go
           go-task
+          goaccess
           golangci-lint
           gzip
           helm
