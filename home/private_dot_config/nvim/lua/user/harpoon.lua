@@ -39,7 +39,7 @@ harpoon.setup({
             -- 	}
             -- },
         },
-        ["$HOME/Workspace/home/network"] = {
+        ["$HOME/Workspace/home/home-network"] = {
             -- term = {
             -- 	cmds = {
             -- 	    "pn dev"
