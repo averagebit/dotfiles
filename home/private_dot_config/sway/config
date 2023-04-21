@@ -36,7 +36,7 @@ exec gammastep
 # --- Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg ~/.local/share/wallpapers/samurai.jpg fill
+output * bg ~/.local/share/wallpapers/space.png fill
 
 # Example configuration:
 #
