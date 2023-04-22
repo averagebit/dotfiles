@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+mimetype=$(file --mime-type "$1")
+echo "${mimetype#* }"
+
