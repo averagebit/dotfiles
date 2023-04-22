@@ -35,6 +35,7 @@
           kustomize
           lm_sensors
           lsof
+          lynx
           mpv
           neofetch
           neovim
