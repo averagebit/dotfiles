@@ -19,10 +19,36 @@ set $term /usr/bin/alacritty
 set $menu albert toggle
 
 # Colors
-set $background "#181825"
-set $foreground "#d9e0ee"
-set $accent "#575268"
-set $gray "#332e41"
+set $base "#1e1e2e"
+set $mantle "#181825"
+set $crust "#11111b"
+
+set $text "#cdd6f4"
+set $subtext0 "#a6adc8"
+set $subtext1 "#bac2de"
+
+set $surface0 "#313244"
+set $surface1 "#45475a"
+set $surface2 "#585b70"
+
+set $overlay0 "#6c7086"
+set $overlay1 "#7f849c"
+set $overlay2 "#9399b2"
+
+set $blue "#89b4fa"
+set $lavender "#b4befe"
+set $sapphire "#74c7ec"
+set $sky "#89dceb"
+set $teal "#94e2d5"
+set $green "#a6e3a1"
+set $yellow "#f9e2af"
+set $peach "#fab387"
+set $maroon "#eba0ac"
+set $red "#f38ba8"
+set $mauve "#cba6f7"
+set $pink "#f5c2e7"
+set $flamingo "#f2cdcd"
+set $rosewater "#f5e0dc"
 
 # xwayland disable
 
@@ -260,8 +286,8 @@ default_border pixel
 default_floating_border pixel
 
 # Set window border colors
-client.unfocused $background $background $accent $foreground
-client.focused $accent $accent $foreground $accent
+client.unfocused $mantle $mantle $surface2 $text
+client.focused $surface2 $surface2 $text $surface2
 
 bar {
     swaybar_command waybar
