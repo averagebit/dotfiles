@@ -64,6 +64,7 @@
           stylua
           swayimg
           sysfsutils
+          terraform
           tmux
           traceroute
           tree
