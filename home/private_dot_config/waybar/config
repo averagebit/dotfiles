@@ -24,7 +24,7 @@
         // "keyboard-state",
         // "sway/language",
         "battery",
-        "battery#bat2",
+        // "battery#bat2",
         "clock",
         "tray"
     ],
@@ -144,8 +144,9 @@
         ]
     },
     "battery": {
+        "full-at": 95,
         "states": {
-            // "good": 95,
+            "good": 95,
             "warning": 30,
             "critical": 15
         },
@@ -154,7 +155,7 @@
         "format-plugged": "{capacity}% ",
         "format-alt": "{time} {icon}",
         // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
+        "format-full": "",
         "format-icons": [
             "",
             "",
@@ -163,9 +164,9 @@
             ""
         ]
     },
-    "battery#bat2": {
-        "bat": "BAT2"
-    },
+    // "battery#bat2": {
+    //     "bat": "BAT2"
+    // },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
         "format-wifi": "{essid} ({signalStrength}%) ",
