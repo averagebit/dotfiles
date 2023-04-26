@@ -9,6 +9,8 @@
           albert
           awscli2
           bind
+          bitwarden
+          bitwarden-cli
           cargo
           chezmoi
           clippy
@@ -50,6 +52,7 @@
           perl
           podman
           pulumi-bin
+          remmina
           ripgrep
           rsync
           rust-analyzer
