@@ -74,6 +74,7 @@
           tree-sitter
           unrar
           unzip
+          ventoy
           waybar
           weechat
           wget
