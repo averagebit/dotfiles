@@ -28,6 +28,7 @@
           goaccess
           golangci-lint
           gzip
+          hadolint
           helm
           htop
           jq
@@ -38,6 +39,7 @@
           lm_sensors
           lsof
           lynx
+          mako
           mpv
           neofetch
           neovim
@@ -51,6 +53,7 @@
           pciutils
           perl
           podman
+          podman-compose
           pulumi-bin
           remmina
           ripgrep
