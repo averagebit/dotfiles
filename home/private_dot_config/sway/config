@@ -50,12 +50,13 @@ set $pink "#f5c2e7"
 set $flamingo "#f2cdcd"
 set $rosewater "#f5e0dc"
 
-# xwayland disable
+xwayland disable
 
 # ----------------------------------------------------------------------
 # --- Startup applications
+exec mako
 exec albert
-exec dropboxd
+# exec dropboxd
 exec gammastep
 
 # ----------------------------------------------------------------------
