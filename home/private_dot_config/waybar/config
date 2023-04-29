@@ -5,14 +5,13 @@
     "spacing": 4,
     "modules-left": [
         "sway/workspaces",
-        "sway/mode",
         "sway/scratchpad",
+        "sway/mode",
     ],
     "modules-center": [
         "sway/window"
     ],
     "modules-right": [
-        "tray",
         "pulseaudio",
         // "idle_inhibitor",
         // "cpu",
@@ -22,6 +21,7 @@
         // "sway/language",
         "battery",
         "network",
+        "tray",
         "custom/clock",
     ],
 
@@ -32,10 +32,13 @@
         "format": "{name}: {icon}",
         "format-icons": {
             "1": "󰞷",
-            "2": "",
+            "2": "󰈹",
             "3": "󰒱",
-            "4": "󰈹",
+            "4": "󰊗",
             "5": "󰙯",
+            "6": "󰘝",
+            "9": "󱁤",
+            "10": "󰢁",
             "urgent": "",
             "focused": "",
             "default": ""
@@ -51,17 +54,18 @@
             "Mozilla Firefox": "󰈹  Firefox",
             "Alacritty": "󰞷  Terminal",
             "Foot": "󰞷  Terminal",
+            "(.*) - Obsidian.*": "󰘝  $1",
         }
     },
     "sway/mode": {
-        "format": " {}"
+        "format": "󰩨 {}"
     },
     "sway/scratchpad": {
-        "format": "{icon} {count}",
+        "format": "{icon}{count}",
         "show-empty": false,
         "format-icons": [
             "",
-            ""
+            "󰖲"
         ],
         "tooltip": true,
         "tooltip-format": "{app}: {title}"
@@ -76,31 +80,31 @@
         // "interface": "wlp2*", // (Optional) To force the use of this interface
         // "format-wifi": "{essid} ({signalStrength}%)  ",
         "format-wifi": "󰖩",
-        "format-ethernet": "{ipaddr}/{cidr} ",
-        "tooltip-format": "{ifname} via {gwaddr} ",
-        "format-linked": "{ifname} (No IP) ",
+        "format-ethernet": "{ipaddr}/{cidr} 󰩠",
+        "tooltip-format": "{ifname} via {gwaddr} 󰩠",
+        "format-linked": "{ifname} (No IP) 󰩠",
         "format-disconnected": "Disconnected ⚠",
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
         "format": "{format_source} {volume}% {icon}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
+        "format-bluetooth": "{format_source} {volume}% {icon}",
+        "format-bluetooth-muted": "{format_source} 󰖁 {icon}",
+        "format-muted": "{format_source} 󰖁",
         "format-source": "",
-        "format-source-muted": "  ",
+        "format-source-muted": "",
         "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
+            "headphone": "󰋋",
+            "hands-free": "󰥰",
+            "headset": "󰥰",
+            "phone": "󰄜",
+            "portable": "󰄜",
+            "car": "󰄋",
             "default": [
-                "",
-                "",
-                ""
+                "󰕿",
+                "󰖀",
+                "󰕾"
             ]
         },
         "on-click": "pavucontrol"
@@ -148,11 +152,11 @@
         "spacing": 4
     },
     "cpu": {
-        "format": "{usage}% ",
+        "format": "{usage}% 󰻠",
         "tooltip": false
     },
     "memory": {
-        "format": "{}% "
+        "format": "{}% 󰍛"
     },
     "temperature": {
         // "thermal-zone": 2,

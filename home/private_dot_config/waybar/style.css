@@ -19,13 +19,13 @@ window#waybar {
 }
 
 window .modules-right {
-    padding-right: 5px;
+    padding-right: 4px;
 }
 
 #workspaces button {
     background: @mantle;
     color: @surface2;
-    padding: 0 5px;
+    padding: 0 4px;
 }
 
 #workspaces button:hover {
@@ -45,9 +45,10 @@ window .modules-right {
 #mode {
     background: @blue;
     color: @mantle;
-    padding: 0 6px;
+    padding: 0 4px;
 }
 
-#tray {
-    margin: 0 5px;
+#scratchpad {
+    background: @mantle;
+    color: @surface2;
 }
