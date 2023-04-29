@@ -1,0 +1,26 @@
+{{ if (and (eq .chezmoi.os "linux") (not .headless) (ne .chezmoi.username "root")) -}}
+{{ $dirs := list
+    "${HOME}/.cache"
+    "${HOME}/.config"
+    "${HOME}/.local"
+    "${HOME}/.ssh"
+    "${HOME}/Documents"
+    "${HOME}/Downloads"
+    "${HOME}/Games"
+    "${HOME}/Music"
+    "${HOME}/Pictures"
+    "${HOME}/Public"
+    "${HOME}/Templates"
+    "${HOME}/Videos"
+    "${HOME}/Workspace/home"
+    "${HOME}/Workspace/repos" -}}
+
+#!/usr/bin/env bash
+
+set -eufo pipefail
+
+mkdir -p {{ $dirs | join " " }}
+chmod 700 {{ $dirs | join " " }}
+chmod 755 "${HOME}/Public"
+{{ end -}}
+
