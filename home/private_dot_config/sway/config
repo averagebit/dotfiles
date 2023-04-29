@@ -50,7 +50,7 @@ set $pink "#f5c2e7"
 set $flamingo "#f2cdcd"
 set $rosewater "#f5e0dc"
 
-xwayland disable
+# xwayland disable
 
 # ----------------------------------------------------------------------
 # --- Startup applications
@@ -273,7 +273,7 @@ mode "resize" {
 # Read `man 5 sway-bar` for more information about this section.
 
 # Set Sway font
-font pango:Hack Nerd Font 11
+font pango:sans-serif Regular 11
 
 # Set gaps between windows
 gaps horizontal 0
