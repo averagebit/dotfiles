@@ -5,7 +5,7 @@
     border: none;
     font-size: 14px;
     min-height: 0;
-    font-family: Material, Roboto, Helvetica, Arial, sans-serif;
+    font-family: sans-serif, sans, monospace;
     transition: none;
     text-shadow: none;
     box-shadow: none;
@@ -16,6 +16,10 @@
 window#waybar {
     background: @mantle;
     color: @text;
+}
+
+window .modules-right {
+    padding-right: 5px;
 }
 
 #workspaces button {
@@ -39,8 +43,8 @@ window#waybar {
 }
 
 #mode {
-    background: @surface2;
-    color: @blue;
+    background: @blue;
+    color: @mantle;
     padding: 0 6px;
 }
 
