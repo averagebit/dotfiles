@@ -18,6 +18,7 @@
           delve
           fd
           fluxcd
+          fuzzel
           gammastep
           gcc
           gh
