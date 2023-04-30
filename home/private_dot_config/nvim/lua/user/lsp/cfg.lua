@@ -35,7 +35,7 @@ local servers = {
     "pylsp",
     "rnix",
     "sqlls",
-    "sumneko_lua",
+    "lua_ls",
     "svelte",
     "tailwindcss",
     "taplo",
@@ -53,7 +53,7 @@ local servers = {
 }
 
 mason_lspconfig.setup({
-    -- A list of servers to automatically install if they're not already installed. Example: { "rust_analyzer@nightly", "sumneko_lua" }
+    -- A list of servers to automatically install if they're not already installed. Example: { "rust_analyzer@nightly", "lua_ls" }
     -- This setting has no relation with the `automatic_installation` setting.
     ensure_installed = servers,
 

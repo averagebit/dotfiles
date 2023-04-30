@@ -28,7 +28,7 @@ end
 
 local M = {}
 
-M.capabilities = cmp_nvim_lsp.update_capabilities(lsp.capabilities)
+M.capabilities = cmp_nvim_lsp.default_capabilities(lsp.capabilities)
 
 function M.setup()
     local signs = {

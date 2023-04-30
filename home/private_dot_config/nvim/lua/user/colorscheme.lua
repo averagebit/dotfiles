@@ -1,32 +1,27 @@
 local colorscheme = "catppuccin"
 
 require("catppuccin").setup({
+    flavour = "mocha", -- latte, frappe, macchiato, mocha
+    background = {
+        light = "latte",
+        dark = "mocha",
+    },
     transparent_background = true,
+    show_end_of_buffer = false, -- show the '~' characters after the end of buffers
     term_colors = false,
     compile = {
         enabled = true,
         path = vim.fn.stdpath("cache") .. "/catppuccin",
     },
-    color_overrides = {
-        all = {
-            text = "#ffffff",
-        },
-        latte = {
-            base = "#ff0000",
-            mantle = "#242424",
-            crust = "#474747",
-        },
-        frappe = {},
-        macchiato = {},
-        mocha = {},
-    },
-    highlight_overrides = {},
     integrations = {
         cmp = true,
         gitsigns = true,
+        harpoon = false,
+        mason = true,
+        nvimtree = true,
         telescope = true,
         treesitter = true,
-        -- nvimtree = true,
+        treesitter_context = true,
         native_lsp = {
             enabled = true,
             virtual_text = {
@@ -43,13 +38,10 @@ require("catppuccin").setup({
             },
         },
         dap = {
-            enabled = false,
-            enable_ui = false,
+            enabled = true,
+            enable_ui = true,
         },
     },
 })
 
-local ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
-if not ok then
-    return
-end
+vim.cmd.colorscheme("catppuccin")
