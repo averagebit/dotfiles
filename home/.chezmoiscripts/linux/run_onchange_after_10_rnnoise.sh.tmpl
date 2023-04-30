@@ -1,0 +1,19 @@
+{{ if (and (eq .chezmoi.os "linux") (not .headless) (ne .chezmoi.username "root")) -}}
+
+#!/usr/bin/env bash
+
+set -eufo pipefail
+
+curl --create-dirs -fLo "${HOME}/.local/lib/rnnoise.zip" "https://github.com/werman/noise-suppression-for-voice/releases/download/v1.03/linux-rnnoise.zip"
+unzip -o "${HOME}/.local/lib/rnnoise.zip" -d "${HOME}/.local/lib"
+rm -rf "${HOME}/.local/lib/rnnoise.zip"
+
+if ldd "${HOME}/.local/lib/linux-rnnoise/ladspa/librnnoise_ladspa.so" | grep "not found"; then
+    echo "error: missing dependency must be installed before rnnoise can be enabled"
+    echo "run: 'systemctl restart --user pipewire.service' when installed"
+    exit 1
+fi
+
+systemctl restart --user pipewire.service
+{{ end -}}
+
