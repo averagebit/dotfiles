@@ -7,18 +7,18 @@ local M = {
 
 M.name = "catppuccin"
 function M.config()
-    require("catppuccin").setup {
+    require("catppuccin").setup({
         flavour = "mocha", -- latte, frappe, macchiato, mocha
         background = {
             light = "latte",
             dark = "mocha",
         },
-        transparent_background = true,
+        transparent_background = false,
         show_end_of_buffer = false,
         term_colors = false,
         compile = {
             enabled = true,
-            path = vim.fn.stdpath "cache" .. "/catppuccin",
+            path = vim.fn.stdpath("cache") .. "/catppuccin",
         },
         integrations = {
             alpha = true,
@@ -33,6 +33,10 @@ function M.config()
             treesitter_context = true,
             which_key = true,
             -- Special
+            indent_blankline = {
+                enabled = true,
+                color_indent_levels = false,
+            },
             dap = {
                 enabled = true,
                 enable_ui = true,
@@ -53,7 +57,7 @@ function M.config()
                 },
             },
         },
-    }
+    })
     local status_ok, _ = pcall(vim.cmd.colorscheme, M.name)
     if not status_ok then
         return

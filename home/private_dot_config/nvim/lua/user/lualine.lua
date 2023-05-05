@@ -50,7 +50,7 @@ function M.config()
     local spaces = function()
         return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
     end
-    lualine.setup {
+    lualine.setup({
         options = {
             globalstatus = true,
             icons_enabled = true,
@@ -68,7 +68,7 @@ function M.config()
             lualine_y = { location },
             lualine_z = { "progress" },
         },
-    }
+    })
 end
 
 return M

@@ -15,7 +15,7 @@ vim.g.maplocalleader = " "
 --   command_mode = "c",
 
 -- Handle typos
-vim.cmd [[
+vim.cmd([[
     cnoreabbrev W w
     cnoreabbrev Q q
     cnoreabbrev qw wq
@@ -24,7 +24,7 @@ vim.cmd [[
     cnoreabbrev Qa qa
     cnoreabbrev Bd bd
     cnoreabbrev bD bd
-]]
+]])
 
 map("n", "<leader>o", "<cmd>e#<CR>", opts)
 

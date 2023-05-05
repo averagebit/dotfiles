@@ -5,8 +5,8 @@ local M = {
 }
 
 function M.config()
-    require("telescope").load_extension "harpoon"
-    require("harpoon").setup {
+    require("telescope").load_extension("harpoon")
+    require("harpoon").setup({
         global_settings = {
             -- sets the marks upon calling `toggle` on the ui, instead of require `:w`.
             save_on_toggle = false,
@@ -43,7 +43,7 @@ function M.config()
                 -- },
             },
         },
-    }
+    })
 end
 
 return M

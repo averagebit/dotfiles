@@ -5,7 +5,7 @@ local M = {
 }
 
 function M.config()
-    local dap = require "dap"
+    local dap = require("dap")
 
     local dap_ui_status_ok, dapui = pcall(require, "dapui")
     if not dap_ui_status_ok then
@@ -48,7 +48,7 @@ function M.config()
                 }, function(input)
                     path = input
                 end)
-                vim.cmd [[redraw]]
+                vim.cmd([[redraw]])
                 return path
             end,
             cwd = "${workspaceFolder}",
@@ -62,7 +62,7 @@ M = {
     commit = "8798b4c36d33723e7bba6ed6e2c202f84bb300de",
     lazy = true,
     config = function()
-        require("dap_install").setup {}
+        require("dap_install").setup({})
         require("dap_install").config("go", {})
         require("dap_install").config("chrome", {})
     end,

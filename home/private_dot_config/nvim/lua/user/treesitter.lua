@@ -16,9 +16,9 @@ local M = {
     },
 }
 function M.config()
-    local treesitter = require "nvim-treesitter"
-    local configs = require "nvim-treesitter.configs"
-    configs.setup {
+    local treesitter = require("nvim-treesitter")
+    local configs = require("nvim-treesitter.configs")
+    configs.setup({
         -- A list of parser names, or "all"
         ensure_installed = {
             "go",
@@ -68,7 +68,7 @@ function M.config()
             -- Instead of true it can also be a list of languages
             additional_vim_regex_highlighting = false,
         },
-    }
+    })
 end
 
 return M

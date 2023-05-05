@@ -12,7 +12,7 @@ local M = {
 }
 
 function M.config()
-    local null_ls = require "null-ls"
+    local null_ls = require("null-ls")
     -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
     local formatting = null_ls.builtins.formatting
     -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
@@ -21,7 +21,7 @@ function M.config()
     local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
     -- https://github.com/prettier-solidity/prettier-plugin-solidity
-    null_ls.setup {
+    null_ls.setup({
         debug = false,
         sources = {
             -- formatting
@@ -30,32 +30,32 @@ function M.config()
             formatting.rustfmt,
             formatting.gofmt,
             formatting.goimports,
-            formatting.terraform_fmt.with {
+            formatting.terraform_fmt.with({
                 extra_filetypes = { "hcl" },
-            },
-            formatting.prettierd.with {
+            }),
+            formatting.prettierd.with({
                 extra_filetypes = { "svelte", "astro" },
-            },
-            formatting.black.with {
+            }),
+            formatting.black.with({
                 extra_args = { "--fast" },
-            },
+            }),
             -- diagnostics
             diagnostics.golangci_lint,
             diagnostics.flake8,
         },
         on_attach = function(client, buf)
-            if client.supports_method "textDocument/formatting" then
-                vim.api.nvim_clear_autocmds { group = augroup, buffer = buf }
+            if client.supports_method("textDocument/formatting") then
+                vim.api.nvim_clear_autocmds({ group = augroup, buffer = buf })
                 vim.api.nvim_create_autocmd("BufWritePre", {
                     group = augroup,
                     buffer = buf,
                     callback = function()
-                        vim.lsp.buf.format { bufnr = buf }
+                        vim.lsp.buf.format({ bufnr = buf })
                     end,
                 })
             end
         end,
-    }
+    })
 end
 
 return M

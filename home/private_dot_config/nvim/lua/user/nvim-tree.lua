@@ -6,7 +6,7 @@ local M = {
 
 function M.config()
     local tree_cb = require("nvim-tree.config").nvim_tree_callback
-    require("nvim-tree").setup {
+    require("nvim-tree").setup({
         update_focused_file = {
             enable = true,
             update_cwd = false,
@@ -53,13 +53,13 @@ function M.config()
             side = "left",
             mappings = {
                 list = {
-                    { key = { "l", "<CR>", "o" }, cb = tree_cb "edit" },
-                    { key = "h",                  cb = tree_cb "close_node" },
-                    { key = "v",                  cb = tree_cb "vsplit" },
+                    { key = { "l", "<CR>", "o" }, cb = tree_cb("edit") },
+                    { key = "h", cb = tree_cb("close_node") },
+                    { key = "v", cb = tree_cb("vsplit") },
                 },
             },
         },
-    }
+    })
 end
 
 return M

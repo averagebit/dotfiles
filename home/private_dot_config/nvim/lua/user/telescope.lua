@@ -11,7 +11,7 @@ local M = {
     },
 }
 
-local actions = require "telescope.actions"
+local actions = require("telescope.actions")
 
 M.opts = {
     defaults = {
