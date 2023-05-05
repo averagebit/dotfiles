@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+CHANNEL="unstable"
+
+open "https://search.nixos.org/packages?channel=${CHANNEL}&from=0&size=50&sort=relevance&type=packages&query=$(urlencode "$*")"
+
