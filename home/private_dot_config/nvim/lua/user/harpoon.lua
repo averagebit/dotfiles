@@ -1,50 +1,49 @@
-local harpoon_ok, harpoon = pcall(require, "harpoon")
-if not harpoon_ok then
-    return
+local M = {
+    "ThePrimeagen/harpoon",
+    commit = "f7040fd0c44e7a4010369136547de5604b9c22a1",
+    event = "VeryLazy",
+}
+
+function M.config()
+    require("telescope").load_extension "harpoon"
+    require("harpoon").setup {
+        global_settings = {
+            -- sets the marks upon calling `toggle` on the ui, instead of require `:w`.
+            save_on_toggle = false,
+
+            -- saves the harpoon file upon every change. disabling is unrecommended.
+            save_on_change = true,
+
+            -- sets harpoon to run the command immediately as it's passed to the terminal when calling `sendCommand`.
+            enter_on_sendcmd = false,
+
+            -- closes any tmux windows harpoon that harpoon creates when you close Neovim.
+            tmux_autoclose_windows = false,
+
+            -- filetypes that you want to prevent from adding to the harpoon list menu.
+            excluded_filetypes = { "harpoon" },
+
+            -- set marks specific to each git branch inside git repository
+            mark_branch = false,
+        },
+        projects = {
+            -- Yes $HOME works
+            ["$HOME/Workspace/home/home-ops"] = {
+                -- term = {
+                -- 	cmds = {
+                -- 	    "pn dev"
+                -- 	}
+                -- },
+            },
+            ["$HOME/Workspace/home/home-network"] = {
+                -- term = {
+                -- 	cmds = {
+                -- 	    "pn dev"
+                -- 	}
+                -- },
+            },
+        },
+    }
 end
 
-local telescope_ok, telescope = pcall(require, "telescope")
-if not telescope_ok then
-    return
-end
-
-telescope.load_extension("harpoon")
-
-harpoon.setup({
-    global_settings = {
-        -- sets the marks upon calling `toggle` on the ui, instead of require `:w`.
-        save_on_toggle = false,
-
-        -- saves the harpoon file upon every change. disabling is unrecommended.
-        save_on_change = true,
-
-        -- sets harpoon to run the command immediately as it's passed to the terminal when calling `sendCommand`.
-        enter_on_sendcmd = false,
-
-        -- closes any tmux windows harpoon that harpoon creates when you close Neovim.
-        tmux_autoclose_windows = false,
-
-        -- filetypes that you want to prevent from adding to the harpoon list menu.
-        excluded_filetypes = { "harpoon" },
-
-        -- set marks specific to each git branch inside git repository
-        mark_branch = false,
-    },
-    projects = {
-        -- Yes $HOME works
-        ["$HOME/Workspace/home/home-ops"] = {
-            -- term = {
-            -- 	cmds = {
-            -- 	    "pn dev"
-            -- 	}
-            -- },
-        },
-        ["$HOME/Workspace/home/home-network"] = {
-            -- term = {
-            -- 	cmds = {
-            -- 	    "pn dev"
-            -- 	}
-            -- },
-        },
-    },
-})
+return M

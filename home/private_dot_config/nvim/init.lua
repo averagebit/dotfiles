@@ -1,18 +1,4 @@
-require("user.alpha")
-require("user.autocommands")
-require("user.options")
-require("user.keymap")
-require("user.plugins")
-require("user.colorscheme")
-require("user.cmp")
-require("user.comment")
-require("user.dap")
-require("user.gitsigns")
-require("user.illuminate")
-require("user.lsp")
-require("user.lualine")
-require("user.nvim-tree")
-require("user.telescope")
-require("user.treesitter")
-require("user.whichkey")
-require("user.harpoon")
+require "options"
+require "keymaps"
+require "Lazy"
+require "autocommands"
