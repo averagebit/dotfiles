@@ -10,7 +10,7 @@ set $up k
 set $right l
 
 # Terminal emulator
-set $term /usr/bin/alacritty
+set $term ~/.nix-profile/bin/foot
 
 # Application launcher
 # Note: pass the final command to swaymsg so that the resulting window
@@ -55,7 +55,7 @@ set $rosewater "#f5e0dc"
 # ----------------------------------------------------------------------
 # --- Startup applications
 exec mako
-exec albert
+# exec albert
 # exec dropboxd
 exec gammastep
 
