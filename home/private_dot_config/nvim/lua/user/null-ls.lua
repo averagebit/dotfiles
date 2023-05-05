@@ -20,7 +20,6 @@ function M.config()
     -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save
     local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
-    -- https://github.com/prettier-solidity/prettier-plugin-solidity
     null_ls.setup({
         debug = false,
         sources = {
@@ -33,8 +32,8 @@ function M.config()
             formatting.terraform_fmt.with({
                 extra_filetypes = { "hcl" },
             }),
-            formatting.prettierd.with({
-                extra_filetypes = { "svelte", "astro" },
+            formatting.prettier.with({
+                extra_filetypes = { "toml", "svelte", "astro" },
             }),
             formatting.black.with({
                 extra_args = { "--fast" },
