@@ -86,7 +86,7 @@ alias code="code --enable-features=WaylandWindowDecorations --ozone-platform-hin
 
 # ----------------------------------------------------------------------
 # --- Functions
-function _exists() {
+function __exists() {
     type "$1" &>/dev/null
 }
 
@@ -175,9 +175,9 @@ function pathprepend() {
 # ----------------------------------------------------------------------
 # --- PATH and CDPATH
 pathprepend \
-    "${HOME}/.nix-profile/bin" \
     "${PNPM_HOME}" \
     "${GOBIN}" \
+    "${HOME}/.nix-profile/bin" \
     "${HOME}/.local/bin"
 
 pathappend \
@@ -219,8 +219,14 @@ __prompt() {
 PROMPT_COMMAND="__prompt"
 
 # ----------------------------------------------------------------------
+# --- Direnv
+if __exists direnv; then
+    eval "$(direnv hook bash)"
+fi
+
+# ----------------------------------------------------------------------
 # --- Dircolors
-if _exists dircolors; then
+if __exists dircolors; then
     if [[ -r "${XDG_CONFIG_HOME}/shell/dircolors" ]]; then
         eval "$(dircolors -b "${XDG_CONFIG_HOME}/shell/dircolors")"
     else
