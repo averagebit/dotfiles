@@ -19,6 +19,7 @@
           direnv
           fd
           fluxcd
+          foot
           fuzzel
           gammastep
           gcc
