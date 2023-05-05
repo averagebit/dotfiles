@@ -16,6 +16,7 @@
           clippy
           curl
           delve
+          direnv
           fd
           fluxcd
           fuzzel
@@ -25,9 +26,7 @@
           git
           gnumake
           go
-          go-task
           goaccess
-          golangci-lint
           gzip
           hadolint
           helm
@@ -46,6 +45,7 @@
           neovim
           netlify-cli
           nettools
+          nix-direnv
           nixfmt
           nmap
           nodejs
