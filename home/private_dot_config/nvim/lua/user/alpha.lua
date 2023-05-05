@@ -39,12 +39,12 @@ function M.config()
         dashboard.button(
             "n",
             "歷" .. " Network",
-            "<cmd>cd ~/Workspace/home/home-network | :e README.md<CR>"
+            "<cmd>cd ~/Workspace/home/network | :e README.md<CR>"
         ),
         dashboard.button(
             "l",
             "" .. "  Laboratory",
-            "<cmd>cd ~/Workspace/home/home-ops | :e README.md<CR>"
+            "<cmd>cd ~/Workspace/home/ops | :e README.md<CR>"
         ),
         dashboard.button(
             "c",
