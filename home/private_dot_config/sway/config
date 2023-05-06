@@ -192,6 +192,8 @@ bindsym Alt+f9 exec playerctl next
 bindsym Alt+f10 exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym Alt+f11 exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym Alt+f12 exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+# System control
+bindsym $mod+Shift+p exec --no-startup-id flameshot gui
 bindsym XF86MonBrightnessDown exec brightnessctl -d gmux_backlight set 5%-
 bindsym XF86MonBrightnessUp exec brightnessctl -d gmux_backlight set 5%+
 bindsym XF86AudioPlay exec playerctl play-pause
@@ -265,6 +267,7 @@ mode "resize" {
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
 }
 
 # ----------------------------------------------------------------------
