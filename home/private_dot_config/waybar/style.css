@@ -30,7 +30,7 @@ window .modules-right {
 
 #workspaces button:hover {
     background: @surface2;
-    color: @mantle;
+    color: @blue;
 }
 
 #workspaces button.focused {
