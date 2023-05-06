@@ -25,6 +25,7 @@
           gcc
           gh
           git
+          git-lfs
           gnumake
           go
           goaccess
@@ -37,6 +38,7 @@
           kubeconform
           kubectl
           kustomize
+          lazygit
           lm_sensors
           lsof
           lynx
@@ -80,6 +82,7 @@
           unrar
           unzip
           ventoy
+          vhs
           waybar
           weechat
           wget
