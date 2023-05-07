@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 file="${NOTES}/Scratchpad/Scratchpad.md"
-vi -c "setlocal nonu nornu laststatus=0 ft=markdown $*" "${file}" 
+exec vi -c "setlocal nonu nornu laststatus=0 ft=markdown $*" "${file}"
 
