@@ -24,20 +24,16 @@ function M.config()
         debug = false,
         sources = {
             -- formatting
-            formatting.clang_format,
             formatting.stylua,
             formatting.nixfmt,
-            formatting.rustfmt,
-            formatting.gofumpt,
             formatting.goimports,
+            formatting.gofumpt,
             formatting.terraform_fmt.with({
                 extra_filetypes = { "hcl" },
             }),
             formatting.prettier.with({
                 extra_filetypes = { "toml", "svelte", "astro" },
             }),
-            -- diagnostics
-            diagnostics.golangci_lint,
         },
         on_attach = function(client, buf)
             if client.supports_method("textDocument/formatting") then
