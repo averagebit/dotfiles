@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+open "https://stackoverflow.com/search?q=$(urlencode "$*")"
+

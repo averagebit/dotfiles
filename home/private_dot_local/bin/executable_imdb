@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+open "https://www.imdb.com/find/?q=$(urlencode "$*")"
+

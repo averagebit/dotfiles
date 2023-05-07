@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+open "https://twitter.com/search?q=$(urlencode "$*")"
+

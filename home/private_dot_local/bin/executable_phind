@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+open "https://www.phind.com/search?q=$(urlencode "$*")"
+

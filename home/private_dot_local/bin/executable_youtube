@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+open "https://www.youtube.com/results?search_query=$(urlencode "$*")"
+
