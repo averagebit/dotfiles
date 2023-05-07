@@ -9,8 +9,8 @@ local M = {
             event = "VeryLazy",
         },
         {
-            "kyazdani42/nvim-web-devicons",
-            commit = "0568104bf8d0c3ab16395433fcc5c1638efc25d4",
+            "nvim-tree/nvim-web-devicons",
+            commit = "986875b7364095d6535e28bd4aac3a9357e91bbe",
             event = "VeryLazy",
         },
     },
