@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+today="$(date +%Y-%m-%d)"
+timestamp="$(date +%Y%m%d)"
+dir="${NOTES}/Daily/${timestamp}"
+file="${dir}/${timestamp}.md"
+
+if [[ ! -e "${file}" ]]; then
+    mkdir -p "${dir}"
+    touch "${file}"
+    echo "# ${today}" > "${file}"
+fi
+
+exec vi -c "setlocal nonu nornu laststatus=0 ft=markdown $*" "${file}"
+
