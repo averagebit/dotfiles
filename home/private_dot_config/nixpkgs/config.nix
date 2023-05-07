@@ -6,10 +6,8 @@
         name = "user-packages";
         paths = [
           age
-          albert
           awscli2
           bind
-          bitwarden
           bitwarden-cli
           cargo
           chezmoi
@@ -44,6 +42,7 @@
           lynx
           mako
           mpv
+          cinnamon.nemo
           neofetch
           neovim
           netlify-cli
@@ -59,7 +58,6 @@
           podman
           podman-compose
           pulumi-bin
-          remmina
           ripgrep
           rsync
           rust-analyzer
