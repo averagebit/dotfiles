@@ -27,6 +27,12 @@ vis::remove() {
     exec chezmoi --interactive rm "${SCRIPTS}/$1"
 }
 
+vis::list() {
+    for s in "${HOME}/.dot/home/private_dot_local/bin/"*; do
+        echo "${s##*executable_}"
+    done
+}
+
 case "$1" in
     check)
         shift;
@@ -39,6 +45,10 @@ case "$1" in
     rm)
         shift;
         vis::remove "$1";
+        ;;
+    ls)
+        shift;
+        vis::list "$1";
         ;;
     *)
         vis::edit "$1";
