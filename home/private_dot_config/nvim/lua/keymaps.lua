@@ -26,6 +26,7 @@ vim.cmd([[
     cnoreabbrev bD bd
 ]])
 
+-- Open last file
 map("n", "<leader>o", "<cmd>e#<CR>", opts)
 
 -- Navigate buffers
@@ -64,6 +65,22 @@ map("n", "<Leader>k", "<cmd>m-2<CR>", opts)
 map("n", "<Leader>j", "<cmd>m+<CR>", opts)
 map("v", "<Leader>k", "<cmd>m'<-2<CR>gv=gv", opts)
 map("v", "<Leader>j", "<cmd>m'>+<CR>gv=gv", opts)
+
+-- Editor
+map("n", "<leader>ts", "<cmd>setlocal spell!<CR>", opts)
+map("n", "<leader>tl", "<cmd>setlocal nolist!<CR>", opts)
+map(
+    "n",
+    "<leader>tn",
+    "<cmd>setlocal nonumber!<CR><cmd>setlocal rnu!<CR>",
+    opts
+)
+map(
+    "n",
+    "<leader>tw",
+    "<cmd>execute('setlocal wrap! breakindent! colorcolumn=' . (&colorcolumn == '' ? &textwidth : ''))<CR>",
+    opts
+)
 
 -- Plugins --
 
@@ -107,21 +124,22 @@ map(
     opts
 )
 
--- Editor
-map("n", "<leader>tl", "<cmd>setlocal nolist!<CR>", opts)
+-- Gitsigns
 map(
     "n",
-    "<leader>tn",
-    "<cmd>setlocal nonumber!<CR><cmd>setlocal rnu!<CR>",
+    "<leader>hp",
+    "<cmd>lua require'gitsigns'.preview_hunk_inline()<CR>",
     opts
 )
-map("n", "<leader>ts", "<cmd>setlocal spell!<CR>", opts)
+map("n", "<leader>hP", "<cmd>lua require'gitsigns'.preview_hunk()<CR>", opts)
+map("n", "<leader>hb", "<cmd>lua require'gitsigns'.blame_line()<CR>", opts)
 map(
     "n",
-    "<leader>tw",
-    "<cmd>execute('setlocal wrap! breakindent! colorcolumn=' . (&colorcolumn == '' ? &textwidth : ''))<CR>",
+    "<leader>hB",
+    "<cmd>lua require'gitsigns'.toggle_current_line_blame()<CR>",
     opts
 )
 
 -- Lsp
 map("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{ async = true }<CR>", opts)
+
