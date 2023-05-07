@@ -4,7 +4,7 @@ Name=Google Chrome
 GenericName=Web Browser
 GenericName[en_GB]=Web Browser
 Comment[en_GB]=Access the Internet
-Exec=/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/chrome --file-forwarding com.google.Chrome --enable-features=UseOzonePlatform --ozone-platform=wayland @@u %U @@
+Exec=/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/chrome --socket=wayland --file-forwarding com.google.Chrome --enable-features=UseOzonePlatform --ozone-platform=wayland @@u %U @@
 StartupNotify=true
 Terminal=false
 Icon=com.google.Chrome
@@ -18,9 +18,9 @@ X-Flatpak=com.google.Chrome
 [Desktop Action new-window]
 Name=New Window
 Name[en_GB]=New Window
-Exec=/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/chrome com.google.Chrome --enable-features=UseOzonePlatform --ozone-platform=wayland
+Exec=/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/chrome --socket=wayland com.google.Chrome --enable-features=UseOzonePlatform --ozone-platform=wayland
 
 [Desktop Action new-private-window]
 Name=New Incognito Window
 Name[en_GB]=New Incognito window
-Exec=/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/chrome com.google.Chrome --enable-features=UseOzonePlatform --ozone-platform=wayland --incognito
+Exec=/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/chrome --socket=wayland com.google.Chrome --enable-features=UseOzonePlatform --ozone-platform=wayland --incognito

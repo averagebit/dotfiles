@@ -1,0 +1,28 @@
+[Desktop Entry]
+Version=1.0
+Name=Jellyfin Media Player
+Comment=Desktop client for Jellyfin
+Exec=/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=jellyfinmediaplayer --socket=wayland com.github.iwalton3.jellyfin-media-player
+Icon=com.github.iwalton3.jellyfin-media-player
+Terminal=false
+Type=Application
+StartupWMClass=jellyfinmediaplayer
+Categories=AudioVideo;Video;Player;TV;
+Actions=DesktopF;DesktopW;TVF;TVW
+X-Flatpak=com.github.iwalton3.jellyfin-media-player
+
+[Desktop Action DesktopF]
+Name=Desktop [Fullscreen]
+Exec=/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=jellyfinmediaplayer --socket=wayland com.github.iwalton3.jellyfin-media-player --fullscreen --desktop
+
+[Desktop Action DesktopW]
+Name=Desktop [Windowed]
+Exec=/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=jellyfinmediaplayer --socket=wayland com.github.iwalton3.jellyfin-media-player --windowed --desktop
+
+[Desktop Action TVF]
+Name=TV [Fullscreen]
+Exec=/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=jellyfinmediaplayer --socket=wayland com.github.iwalton3.jellyfin-media-player --fullscreen --tv
+
+[Desktop Action TVW]
+Name=TV [Windowed]
+Exec=/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=jellyfinmediaplayer --socket=wayland com.github.iwalton3.jellyfin-media-player --windowed --tv
