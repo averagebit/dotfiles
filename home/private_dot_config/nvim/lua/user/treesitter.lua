@@ -5,20 +5,20 @@ local M = {
     dependencies = {
         {
             "JoosepAlviste/nvim-ts-context-commentstring",
-            event = "VeryLazy",
             commit = "729d83ecb990dc2b30272833c213cc6d49ed5214",
+            event = "VeryLazy",
         },
         {
             "kyazdani42/nvim-web-devicons",
-            event = "VeryLazy",
             commit = "0568104bf8d0c3ab16395433fcc5c1638efc25d4",
+            event = "VeryLazy",
         },
     },
 }
+
 function M.config()
     local treesitter = require("nvim-treesitter")
-    local configs = require("nvim-treesitter.configs")
-    configs.setup({
+    require("nvim-treesitter.configs").setup({
         -- A list of parser names, or "all"
         ensure_installed = {
             "go",
