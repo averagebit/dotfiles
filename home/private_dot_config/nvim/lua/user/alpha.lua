@@ -1,7 +1,7 @@
 local M = {
     "goolord/alpha-nvim",
     event = "VimEnter",
-    commit = "dafa11a6218c2296df044e00f88d9187222ba6b0",
+    commit = "89eaa18a472be680539dee5977e2255f4dbd0738",
 }
 
 function M.config()
@@ -59,9 +59,9 @@ function M.config()
 
     dashboard.section.footer.val = footer()
 
-    dashboard.section.footer.opts.hl = "Type"
-    dashboard.section.header.opts.hl = "Include"
-    dashboard.section.buttons.opts.hl = "Keyword"
+    dashboard.section.footer.opts.hl = "Function"
+    dashboard.section.header.opts.hl = "Function"
+    dashboard.section.buttons.opts.hl = "Function"
 
     dashboard.opts.opts.noautocmd = true
     alpha.setup(dashboard.opts)
