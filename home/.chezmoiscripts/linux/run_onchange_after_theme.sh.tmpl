@@ -1,0 +1,19 @@
+{{ if (and (eq .chezmoi.os "linux") (not .headless) (ne .chezmoi.username "root")) -}}
+
+#!/usr/bin/env bash
+
+set -eufo pipefail
+
+curl --create-dirs -fLo "${HOME}/.themes/catppuccin.zip" "https://github.com/catppuccin/gtk/releases/download/v0.5.0/Catppuccin-Mocha-Standard-Blue-Dark.zip"
+unzip -o "${HOME}/.themes/catppuccin.zip" -d "${HOME}/.themes"
+rm -rf "${HOME}/.themes/catppuccin.zip"
+
+flatpak override --user --filesystem="${HOME}/.themes:ro"
+flatpak override --user --env=GTK_THEME="Catppuccin-Mocha-Standard-Blue-Dark"
+
+mkdir -p "${HOME}/.config/gtk-4.0"
+ln -sf "${HOME}/.themes/Catppuccin-Mocha-Standard-Blue-Dark/gtk-4.0/assets" "${HOME}/.config/gtk-4.0/assets"
+ln -sf "${HOME}/.themes/Catppuccin-Mocha-Standard-Blue-Dark/gtk-4.0/gtk.css" "${HOME}/.config/gtk-4.0/gtk.css"
+ln -sf "${HOME}/.themes/Catppuccin-Mocha-Standard-Blue-Dark/gtk-4.0/gtk-dark.css" "${HOME}/.config/gtk-4.0/gtk-dark.css"
+{{ end -}}
+
