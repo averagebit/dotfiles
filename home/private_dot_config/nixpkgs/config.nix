@@ -11,6 +11,7 @@
           bitwarden-cli
           cargo
           chezmoi
+          cinnamon.nemo
           clippy
           curl
           delve
@@ -19,6 +20,7 @@
           fluxcd
           foot
           fuzzel
+          fzf
           gammastep
           gcc
           gh
@@ -42,7 +44,6 @@
           lynx
           mako
           mpv
-          cinnamon.nemo
           neofetch
           neovim
           netlify-cli
@@ -77,6 +78,7 @@
           traceroute
           tree
           tree-sitter
+          ttyper
           unrar
           unzip
           ventoy
@@ -87,6 +89,7 @@
           whois
           wl-clipboard
           yq
+          ytfzf
           zathura
           zip
         ];
