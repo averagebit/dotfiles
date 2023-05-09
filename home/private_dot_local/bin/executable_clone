@@ -1,11 +1,44 @@
 #!/usr/bin/env bash
+#
+# If only the repo name is provided for <repo-url> the default registry and user
+# are used to construct the path. If both the repo name and repo owner are
+# provided for <repo-url> such as "repo_owner/repo_name" that overrides the
+# default user. If a <folder-name> argument is provided it replaces the
+# repo_name as the folder name. Repositories are cloned in a directory following
+# this pattern: repos_dir/repo_registry/repo_owner/repo_name
+# (e.g. "~/repos/github.com/user/repo")
 
 set -eufo pipefail
 
 ARGS=()
-REPOS_DIR="${REPOS:-"${HOME}/repos"}"
 CLONE_BARE="false"
-CLONE_USER="${GITUSER:-"$(whoami)"}"
+CLONE_USER="$(whoami)"
+CLONE_REGISTRY="github.com"
+CLONE_REPOS_DIR="${HOME}/repos"
+
+function help() {
+    cat << EOF
+Clone repositories in a predefined directory structure.
+
+Usage:
+  clone [flags] [options] <repo-url> <folder-name>
+
+Arguments:
+  repo-url      The repository url (accepted formats:
+                [name|owner/name|git@github.com:owner/name|https://github.com/owner/name])
+  repo-folder   The name of the folder to clone the repository in (default:
+                the repository name)
+
+Options:
+  -d, --dir        The repositories directory (default: \$CLONE_REPOS_DIR="\${HOME}/repos")
+  -u, --user       The default git user (default: \$CLONE_USER="\$(whoami)")
+  -r, --registry   The default git remote registry (default: \$CLONE_REGISTRY="github.com")
+
+Flags:
+  -b, --bare   clone as bare repository
+  -h, --help   help for clone
+EOF
+}
 
 function get_repo_registry() {
     local registry
@@ -18,6 +51,7 @@ function get_repo_registry() {
 }
 
 function get_repo_owner() {
+    local owner
     owner="$1"
     owner="${owner#*://*/}"
     owner="${owner%%/*}"
@@ -51,8 +85,8 @@ function remove_repo() {
     local repo_path repo_owner_path
     repo_path="${1}"
     repo_owner_path="${repo_path%/*}"
-    test -r "${repo_path}" && rm -r "${repo_path}"
-    find "${repo_owner_path}" -maxdepth 0 -type d -empty -delete
+    find "${repo_path}" -maxdepth 0 -type d -empty -delete || true
+    find "${repo_owner_path}" -maxdepth 0 -type d -empty -delete || true
 }
 
 function clone_repo_regular() {
@@ -89,6 +123,12 @@ function clone_repo() {
     repo_url="${1}"
     clone_dir="${2:-}"
 
+    if [[ -z "${repo_url:-}" ]]; then
+        echo -e "error: missing argument <repo-url>"
+        help
+        exit 1
+    fi
+
     if grep -qE "^(http|https|git@)" <<< "${repo_url}"; then
         repo_registry="$(get_repo_registry "${repo_url}")"
         repo_name="$(get_repo_name "${repo_url}")"
@@ -96,19 +136,19 @@ function clone_repo() {
     fi
 
     if [[ "${repo_url}" =~ "/" && -z "${repo_registry:-}" ]]; then
-        repo_registry="github.com"
+        repo_registry="${CLONE_REGISTRY}"
         repo_owner="${repo_url%%/*}"
         repo_name="${repo_url##*/}"
     fi
 
     if [[ -z "${repo_registry:-}" ]]; then
-        repo_registry="github.com"
+        repo_registry="${CLONE_REGISTRY}"
         repo_owner="${CLONE_USER}"
         repo_name="${repo_url}"
     fi
 
     repo_url="git@${repo_registry}:${repo_owner}/${repo_name}"
-    repo_path="${REPOS_DIR}/${repo_registry}/${repo_owner}/${clone_dir:-"${repo_name}"}"
+    repo_path="${CLONE_REPOS_DIR}/${repo_registry}/${repo_owner}/${clone_dir:-"${repo_name}"}"
 
     if [[ "${CLONE_BARE}" == "true" ]]; then
         clone_repo_bare "${repo_url}" "${repo_path}"
@@ -123,6 +163,22 @@ while [[ $# -gt 0 ]]; do
             CLONE_BARE="true"
             shift
             ;;
+        -d|--dir)
+            CLONE_REPOS_DIR="$2"
+            shift 2
+            ;;
+        -u|--user)
+            CLONE_USER="$2"
+            shift 2
+            ;;
+        -r|--registry)
+            CLONE_REGISTRY="$2"
+            shift 2
+            ;;
+        -h|--help)
+            help
+            exit 0
+            ;;
         *)
             ARGS+=("$1")
             shift
@@ -131,5 +187,9 @@ while [[ $# -gt 0 ]]; do
 done
 
 set -- "${ARGS[@]}"
+if [[ $# -eq 0 ]]; then
+    help
+    exit 1
+fi
 
 clone_repo "$@"
