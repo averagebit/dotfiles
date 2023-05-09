@@ -1,2 +1,6 @@
 include catppuccin-mocha
 set sandbox strict
+set selection-clipboard clipboard
+set recolor true
+set recolor-lightcolor "#1E1E2E"
+set recolor-darkcolor "#CDD6F4"
