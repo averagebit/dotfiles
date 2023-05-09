@@ -1,0 +1,135 @@
+#!/usr/bin/env bash
+
+set -eufo pipefail
+
+ARGS=()
+REPOS_DIR="${REPOS:-"${HOME}/repos"}"
+CLONE_BARE="false"
+CLONE_USER="${GITUSER:-"$(whoami)"}"
+
+function get_repo_registry() {
+    local registry
+    registry="$1"
+    registry="${registry#*://}"
+    registry="${registry%%/*}"
+    registry="${registry#git@}"
+    registry="${registry%%:*}"
+    echo "${registry}"
+}
+
+function get_repo_owner() {
+    owner="$1"
+    owner="${owner#*://*/}"
+    owner="${owner%%/*}"
+    owner="${owner#git@*:}"
+    echo "${owner}"
+}
+
+function get_repo_name() {
+    local repo
+    repo="$1"
+    repo="${repo%.git}"
+    repo="${repo#*://}"
+    repo="${repo##*/}"
+    repo="${repo#git@}"
+    repo="${repo##*:}"
+    echo "${repo}"
+}
+
+function get_repo_branch() {
+    local repo_path
+    repo_path="$1"
+    cd "${repo_path}"
+    if grep -q main <<< "$(git branch)"; then
+        echo "main"
+    else
+        echo "master"
+    fi
+}
+
+function remove_repo() {
+    local repo_path repo_owner_path
+    repo_path="${1}"
+    repo_owner_path="${repo_path%/*}"
+    test -r "${repo_path}" && rm -r "${repo_path}"
+    find "${repo_owner_path}" -maxdepth 0 -type d -empty -delete
+}
+
+function clone_repo_regular() {
+    local repo_url repo_path
+    repo_url="$1"
+    repo_path="$2"
+    if ! git clone --recursive "${repo_url}" "${repo_path}"; then
+        remove_repo "${repo_path}"
+        exit 1
+    fi
+    echo "${repo_path}"
+}
+
+function clone_repo_bare() {
+    local repo_url repo_path
+    repo_url="$1"
+    repo_path="$2"
+    mkdir -p "${repo_path}"
+    if ! git clone --recursive --bare "${repo_url}" "${repo_path}/.repo"; then
+        remove_repo "${repo_path}"
+        exit 1
+    fi
+    cd "${repo_path}"
+    repo_branch="$(get_repo_branch "${repo_path}")"
+    echo "gitdir: ./.repo" > .git
+    git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+    git fetch origin
+    git worktree add "${repo_branch}"
+    echo "${repo_path}/${repo_branch}"
+}
+
+function clone_repo() {
+    local repo_url repo_registry repo_name repo_owner clone_dir
+    repo_url="${1}"
+    clone_dir="${2:-}"
+
+    if grep -qE "^(http|https|git@)" <<< "${repo_url}"; then
+        repo_registry="$(get_repo_registry "${repo_url}")"
+        repo_name="$(get_repo_name "${repo_url}")"
+        repo_owner="$(get_repo_owner "${repo_url}")"
+    fi
+
+    if [[ "${repo_url}" =~ "/" && -z "${repo_registry:-}" ]]; then
+        repo_registry="github.com"
+        repo_owner="${repo_url%%/*}"
+        repo_name="${repo_url##*/}"
+    fi
+
+    if [[ -z "${repo_registry:-}" ]]; then
+        repo_registry="github.com"
+        repo_owner="${CLONE_USER}"
+        repo_name="${repo_url}"
+    fi
+
+    repo_url="git@${repo_registry}:${repo_owner}/${repo_name}"
+    repo_path="${REPOS_DIR}/${repo_registry}/${repo_owner}/${clone_dir:-"${repo_name}"}"
+
+    if [[ "${CLONE_BARE}" == "true" ]]; then
+        clone_repo_bare "${repo_url}" "${repo_path}"
+    else
+        clone_repo_regular "${repo_url}" "${repo_path}"
+    fi
+}
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -b|--bare)
+            CLONE_BARE="true"
+            shift
+            ;;
+        *)
+            ARGS+=("$1")
+            shift
+            ;;
+    esac
+done
+
+set -- "${ARGS[@]}"
+
+clone_repo "$@"

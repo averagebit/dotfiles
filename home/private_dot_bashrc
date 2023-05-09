@@ -95,61 +95,8 @@ function reload() {
     source "${HOME}/.bashrc"
 }
 
-function clone() {
-    local registry dirname bare repo dir
-    bare="true"
-    registry="github.com"
-    while [[ $# -gt 1 ]]; do
-        case "$1" in
-            -n) bare="false"; shift ;;
-            -d) dirname="$2"; shift; shift ;;
-            -l) registry="gitlab.com"; shift ;;
-        esac
-    done
-    repo="$1"
-    repo="${repo%.git}"
-    repo="${repo#git@github.com:}"
-    repo="${repo#git@gitlab.com:}"
-    repo="${repo#https://github.com/}"
-    repo="${repo#https://gitlab.com/}"
-    dir="${REPOS}/${registry}"
-    if [[ "${repo}" =~ / ]]; then
-        if [[ -z "${dirname}" ]]; then
-            dir="${dir}/${repo}"
-        else
-            dir="${dir}/${repo%/*}/${dirname}"
-        fi
-        repo="git@${registry}:${repo}"
-    else
-        if [[ -z "${dirname}" ]]; then
-            dir="${dir}/${GITUSER}/${repo}"
-        else
-            dir="${dir}/${GITUSER}/${dirname}"
-        fi
-        repo="git@${registry}:${GITUSER}/${repo}"
-    fi
-    if [[ "${bare}" == "true" ]]; then
-        mkdir -p "${dir}"
-        cd "${dir}" || return 1
-        if ! git clone --recursive --bare "${repo}" .repo; then
-            cd - || return 1
-            rm -r "${dir}"
-            return 1
-        fi
-        echo "gitdir: ./.repo" > .git
-        git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
-        git fetch origin
-        if grep master <<< "$(git branch)"; then
-            git worktree add master
-            cd master || return 1
-        elif grep main <<< "$(git branch)"; then
-            git worktree add main
-            cd main || return 1
-        fi
-    else
-        git clone --recursive "${repo}" "${dir}"
-        cd "${dir}" || return 1
-    fi
+clone() {
+    cd "$(bash "${HOME}/.local/bin/clone" "$@" | tail -n 1)" || return 1
 }
 
 function pathappend() {
