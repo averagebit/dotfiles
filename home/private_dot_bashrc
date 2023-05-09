@@ -25,13 +25,21 @@ export LESSHISTFILE="-"
 # User
 export USER="$(whoami)"
 export GITUSER="${USER}"
-export DOT="${HOME}/.config/dot"
-export SCRIPTS="${DOT}/bin"
+export DOT="${HOME}/.dot"
+export SCRIPTS="${HOME}/.local/bin"
 export WORKSPACE="${HOME}/Workspace"
 export REPOS="${WORKSPACE}/repos"
 export GHREPOS="${REPOS}/github.com"
 export GLREPOS="${REPOS}/gitlab.com"
 export NOTES="${XDG_DATA_HOME}/notes"
+export TMPDIR="/tmp"
+
+# XDG
+export XDG_CACHE_HOME="${HOME}/.cache"
+export XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_CURRENT_DESKTOP=sway
+export XDG_DATA_DIRS="${HOME}/.local/share:${HOME}/.nix-profile/share:${HOME}/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share/:/usr/share/"
+export XDG_DATA_HOME="${HOME}/.local/share"
 export XDG_DESKTOP_DIR="${HOME}/Desktop"
 export XDG_DOCUMENTS_DIR="${HOME}/Documents"
 export XDG_DOWNLOAD_DIR="${HOME}/Downloads"
@@ -39,18 +47,12 @@ export XDG_GAMES_DIR="${HOME}/Games"
 export XDG_MUSIC_DIR="${HOME}/Music"
 export XDG_PICTURES_DIR="${HOME}/Pictures"
 export XDG_PUBLICSHARE_DIR="${HOME}/Public"
+export XDG_SESSION_DESKTOP=sway
 export XDG_TEMPLATES_DIR="${HOME}/Templates"
 export XDG_VIDEOS_DIR="${HOME}/Videos"
-export XDG_CACHE_HOME="${HOME}/.cache"
-export XDG_CONFIG_HOME="${HOME}/.config"
-export XDG_DATA_HOME="${HOME}/.local/share"
-export XDG_DATA_DIRS="/home/${USER}/.nix-profile/share:/home/${USER}/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share/:/usr/share/"
-export TMPDIR="/tmp"
 
-# Wayland
+# QT
 export QT_QPA_PLATFORM=wayland
-export XDG_CURRENT_DESKTOP=sway
-export XDG_SESSION_DESKTOP=sway
 
 # Lynx
 export LYNX_CFG="${XDG_CONFIG_HOME}/lynx/lynx.cfg"
@@ -62,7 +64,7 @@ export RUSTUP_HOME="${XDG_DATA_HOME}/rust"
 
 # Go
 export GOPATH="${XDG_DATA_HOME}/go"
-export GOBIN="${XDG_DATA_HOME}/go/bin"
+export GOBIN="${HOME}/.local/bin"
 
 # Docker
 export DOCKER_CONTENT_TRUST=0
@@ -82,7 +84,6 @@ alias ls="/bin/ls -la --color"
 alias chmox="chmod u+x"
 alias temp="cd $(mktemp -d)"
 alias pn="pnpm"
-alias code="code --enable-features=WaylandWindowDecorations --ozone-platform-hint=auto"
 
 # ----------------------------------------------------------------------
 # --- Functions
