@@ -51,6 +51,9 @@ export XDG_SESSION_DESKTOP=sway
 export XDG_TEMPLATES_DIR="${HOME}/Templates"
 export XDG_VIDEOS_DIR="${HOME}/Videos"
 
+# Nix
+NIXOS_OZONE_WL=1
+
 # QT
 export QT_QPA_PLATFORM=wayland
 
