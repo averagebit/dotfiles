@@ -83,6 +83,7 @@
           unzip
           ventoy
           vhs
+          vscode
           waybar
           weechat
           wget
