@@ -1,14 +1,13 @@
 #!/bin/bash
 
 set -o vi
-umask 0007
+umask 0077
 
 # ----------------------------------------------------------------------
 # --- Variables
 #
 # General
 export TERM="xterm-256color"
-export HRULEWIDTH=73
 export EDITOR_PREFIX="nvim"
 export EDITOR="nvim"
 export VISUAL="nvim"
@@ -21,6 +20,7 @@ export INPUTRC="${XDG_CONFIG_HOME}/shell/inputrc"
 export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}/npm"
 export HISTCONTROL=ignoreboth
 export LESSHISTFILE="-"
+export TMPDIR="/tmp"
 
 # User
 export USER="$(whoami)"
@@ -32,7 +32,7 @@ export REPOS="${WORKSPACE}/repos"
 export GHREPOS="${REPOS}/github.com"
 export GLREPOS="${REPOS}/gitlab.com"
 export NOTES="${XDG_DATA_HOME}/notes"
-export TMPDIR="/tmp"
+export PDFS="${GHREPOS}/${GITUSER}/pdfs"
 
 # XDG
 export XDG_CACHE_HOME="${HOME}/.cache"
@@ -52,22 +52,10 @@ export XDG_TEMPLATES_DIR="${HOME}/Templates"
 export XDG_VIDEOS_DIR="${HOME}/Videos"
 
 # Nix
-NIXOS_OZONE_WL=1
+export NIXOS_OZONE_WL=1
 
 # QT
 export QT_QPA_PLATFORM=wayland
-
-# Lynx
-export LYNX_CFG="${XDG_CONFIG_HOME}/lynx/lynx.cfg"
-export LYNX_LSS="${XDG_CONFIG_HOME}/lynx/lynx.lss"
-
-# Rust
-export CARGO_HOME="${XDG_DATA_HOME}/cargo"
-export RUSTUP_HOME="${XDG_DATA_HOME}/rust"
-
-# Go
-export GOPATH="${XDG_DATA_HOME}/go"
-export GOBIN="${HOME}/.local/bin"
 
 # Docker
 export DOCKER_CONTENT_TRUST=0
@@ -78,10 +66,21 @@ export PNPM_HOME="${XDG_DATA_HOME}/pnpm"
 # Kubernetes
 export KUBECONFIG="${HOME}/.kube/config"
 
+# Go
+export GOPATH="${XDG_DATA_HOME}/go"
+export GOBIN="${HOME}/.local/bin"
+
+# Rust
+export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+export RUSTUP_HOME="${XDG_DATA_HOME}/rust"
+
+# Lynx
+export LYNX_CFG="${XDG_CONFIG_HOME}/lynx/lynx.cfg"
+export LYNX_LSS="${XDG_CONFIG_HOME}/lynx/lynx.lss"
+
 # ----------------------------------------------------------------------
 # --- Aliases
 alias '?'='duck'
-alias '??'='google'
 alias 'cd..'='cd ..'
 alias ls="/bin/ls -la --color"
 alias chmox="chmod u+x"
@@ -98,28 +97,31 @@ function reload() {
     source "${HOME}/.bashrc"
 }
 
-clone() {
-    cd "$(bash "${HOME}/.local/bin/clone" "$@" | tail -n 1)" || return 1
+function clone() {
+    local output repo_dir
+    output="$("${SCRIPTS}/clone" -d "${REPOS}" -u "${GITUSER}" -r "github.com" "$@" 2>&1 | tee /dev/tty)"
+    repo_dir="$(echo "${output}" | tail -n 1)"
+    [[ -d "${repo_dir}" ]] && cd "${repo_dir}" || return 1
 }
 
 function pathappend() {
     declare arg
     for arg in "$@"; do
-        test -d "$arg" || continue
+        test -d "${arg}" || continue
         PATH=${PATH//":$arg:"/:}
         PATH=${PATH/#"$arg:"/}
         PATH=${PATH/%":$arg"/}
-        export PATH="${PATH:+"$PATH:"}$arg"
+        export PATH="${PATH:+"$PATH:"}${arg}"
     done
 }
 
 function pathprepend() {
     for arg in "$@"; do
-        test -d "$arg" || continue
+        test -d "${arg}" || continue
         PATH=${PATH//:"$arg:"/:}
         PATH=${PATH/#"$arg:"/}
         PATH=${PATH/%":$arg"/}
-        export PATH="$arg${PATH:+":${PATH}"}"
+        export PATH="${arg}${PATH:+":${PATH}"}"
     done
 }
 
