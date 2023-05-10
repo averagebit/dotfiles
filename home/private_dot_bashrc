@@ -6,6 +6,12 @@ umask 0077
 # ----------------------------------------------------------------------
 # --- Variables
 #
+# XDG
+export XDG_CACHE_HOME="${HOME}/.cache"
+export XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_DATA_HOME="${HOME}/.local/share"
+export XDG_STATE_HOME="${HOME}/.local/state"
+
 # General
 export TERM="xterm-256color"
 export EDITOR_PREFIX="nvim"
@@ -14,17 +20,13 @@ export VISUAL="nvim"
 export CLICOLOR=1
 # export GPG_TTY="$(tty)"
 export PAGER="less"
-export HISTFILE="${XDG_DATA_HOME}/history"
-export GNUPGHOME="${XDG_CONFIG_HOME}/gnupg"
-export INPUTRC="${XDG_CONFIG_HOME}/shell/inputrc"
-export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}/npm"
 export HISTCONTROL=ignoreboth
 export LESSHISTFILE="-"
 export TMPDIR="/tmp"
+export INPUTRC="${XDG_CONFIG_HOME}/shell/inputrc"
 
 # User
 export USER="$(whoami)"
-export GITUSER="${USER}"
 export DOT="${HOME}/.dot"
 export SCRIPTS="${HOME}/.local/bin"
 export WORKSPACE="${HOME}/Workspace"
@@ -32,39 +34,7 @@ export REPOS="${WORKSPACE}/repos"
 export GHREPOS="${REPOS}/github.com"
 export GLREPOS="${REPOS}/gitlab.com"
 export NOTES="${XDG_DATA_HOME}/notes"
-export PDFS="${GHREPOS}/${GITUSER}/pdfs"
-
-# XDG
-export XDG_CACHE_HOME="${HOME}/.cache"
-export XDG_CONFIG_HOME="${HOME}/.config"
-export XDG_CURRENT_DESKTOP=sway
-export XDG_DATA_DIRS="${HOME}/.local/share:${HOME}/.nix-profile/share:${HOME}/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share/:/usr/share/"
-export XDG_DATA_HOME="${HOME}/.local/share"
-export XDG_DESKTOP_DIR="${HOME}/Desktop"
-export XDG_DOCUMENTS_DIR="${HOME}/Documents"
-export XDG_DOWNLOAD_DIR="${HOME}/Downloads"
-export XDG_GAMES_DIR="${HOME}/Games"
-export XDG_MUSIC_DIR="${HOME}/Music"
-export XDG_PICTURES_DIR="${HOME}/Pictures"
-export XDG_PUBLICSHARE_DIR="${HOME}/Public"
-export XDG_SESSION_DESKTOP=sway
-export XDG_TEMPLATES_DIR="${HOME}/Templates"
-export XDG_VIDEOS_DIR="${HOME}/Videos"
-
-# Nix
-export NIXOS_OZONE_WL=1
-
-# QT
-export QT_QPA_PLATFORM=wayland
-
-# Docker
-export DOCKER_CONTENT_TRUST=0
-
-# PNPM
-export PNPM_HOME="${XDG_DATA_HOME}/pnpm"
-
-# Kubernetes
-export KUBECONFIG="${HOME}/.kube/config"
+export PDFS="${GHREPOS}/${USER}/pdfs"
 
 # Go
 export GOPATH="${XDG_DATA_HOME}/go"
@@ -73,10 +43,6 @@ export GOBIN="${HOME}/.local/bin"
 # Rust
 export CARGO_HOME="${XDG_DATA_HOME}/cargo"
 export RUSTUP_HOME="${XDG_DATA_HOME}/rust"
-
-# Lynx
-export LYNX_CFG="${XDG_CONFIG_HOME}/lynx/lynx.cfg"
-export LYNX_LSS="${XDG_CONFIG_HOME}/lynx/lynx.lss"
 
 # ----------------------------------------------------------------------
 # --- Aliases
@@ -99,7 +65,7 @@ function reload() {
 
 function clone() {
     local output repo_dir
-    output="$("${SCRIPTS}/clone" -d "${REPOS}" -u "${GITUSER}" -r "github.com" "$@" 2>&1 | tee /dev/tty)"
+    output="$("${SCRIPTS}/clone" -d "${REPOS}" -u "${USER}" -r "github.com" "$@" 2>&1 | tee /dev/tty)"
     repo_dir="$(echo "${output}" | tail -n 1)"
     [[ -d "${repo_dir}" ]] && cd "${repo_dir}" || return 1
 }
