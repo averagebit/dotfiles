@@ -54,6 +54,7 @@
           nodejs
           packer
           pandoc
+          pavucontrol
           pciutils
           perl
           podman
