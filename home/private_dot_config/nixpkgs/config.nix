@@ -16,6 +16,7 @@
           curl
           delve
           direnv
+          exiftool
           fd
           fluxcd
           foot
