@@ -142,4 +142,3 @@ map(
 
 -- Lsp
 map("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{ async = true }<CR>", opts)
-
