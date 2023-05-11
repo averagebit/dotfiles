@@ -2,7 +2,7 @@
 
 today="$(date +%Y-%m-%d)"
 timestamp="$(date +%Y%m%d)"
-dir="${NOTES}/Daily/${timestamp}"
+dir="${NOTES}/daily/${timestamp}"
 file="${dir}/${timestamp}.md"
 
 if [[ ! -e "${file}" ]]; then
