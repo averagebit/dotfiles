@@ -81,6 +81,7 @@
           tree
           tree-sitter
           ttyper
+          tz
           unrar
           unzip
           ventoy
