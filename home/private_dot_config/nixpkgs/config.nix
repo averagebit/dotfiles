@@ -86,6 +86,7 @@
           unzip
           ventoy
           vhs
+          vial
           vscode
           waybar
           weechat
