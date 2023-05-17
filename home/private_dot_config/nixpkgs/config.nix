@@ -35,6 +35,7 @@
           helm
           htop
           jq
+          k9s
           kind
           kubeconform
           kubectl
