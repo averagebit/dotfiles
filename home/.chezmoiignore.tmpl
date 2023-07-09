@@ -1,21 +1,12 @@
 {{- if .headless }}
 .config/alacritty/
-.config/fontconfig/
+.config/ferris/
 .config/foot/
-.config/fuzzel/
-.config/gammastep/
-.config/mako/
 .config/mpv/
-.config/pipewire/
 .config/zathura/
-.config/code-flags.conf
-.config/electron-flags.conf
-.config/electron13-flags.conf
-.local/share/applications/
 .local/share/wallpapers/
 {{- end }}
 {{- if (and (eq .chezmoi.os "linux") (not .swaywm)) }}
 .config/sway/
 .config/waybar/
-.config/swayimg/
 {{- end }}

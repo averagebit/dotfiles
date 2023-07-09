@@ -12,6 +12,11 @@
 {{-   $swaywm = true -}}
 {{-   $agekey = true -}}
 {{- end -}}
+{{- if eq $hostname "stud" -}}
+{{-   $headless = false -}}
+{{-   $swaywm = false -}}
+{{-   $agekey = true -}}
+{{- end -}}
 {{- if hasKey . "headless" -}}
 {{-   $headless = .headless -}}
 {{- else if $interactive -}}

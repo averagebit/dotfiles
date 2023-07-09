@@ -2,7 +2,7 @@
 
 #!/usr/bin/env bash
 
-set -eufo pipefail
+set -eu
 
 curl --create-dirs -fLo "${HOME}/.themes/catppuccin.zip" "https://github.com/catppuccin/gtk/releases/download/v0.5.0/Catppuccin-Mocha-Standard-Blue-Dark.zip"
 unzip -o "${HOME}/.themes/catppuccin.zip" -d "${HOME}/.themes"
