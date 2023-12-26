@@ -23,16 +23,16 @@ function M.config()
         sources = { "nvim_diagnostic" },
         sections = { "error", "warn" },
         symbols = {
-            error = icons.diagnostics.BoldError,
-            warn = icons.diagnostics.BoldWarning,
+            error = icons.diagnostics.BoldError .. " ",
+            warn = icons.diagnostics.BoldWarning .. " ",
         },
-        colored = true,
+        colored = false,
         always_visible = true,
     }
 
     local diff = {
         "diff",
-        colored = true,
+        colored = false,
         symbols = {
             added = icons.git.LineAdded,
             modified = icons.git.LineModified,
