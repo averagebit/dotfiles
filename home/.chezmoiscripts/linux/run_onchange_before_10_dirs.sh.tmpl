@@ -8,17 +8,17 @@
     "${HOME}/Downloads"
     "${HOME}/Games"
     "${HOME}/Music"
-    "${HOME}/Music/projects"
     "${HOME}/Pictures"
     "${HOME}/Public"
     "${HOME}/Templates"
     "${HOME}/Videos"
     "${HOME}/Workspace/home"
+    "${HOME}/Workspace/music"
     "${HOME}/Workspace/repos" -}}
 
 #!/usr/bin/env bash
 
-set -eufo pipefail
+set -eu
 
 mkdir -p {{ $dirs | join " " }}
 chmod 700 {{ $dirs | join " " }}
