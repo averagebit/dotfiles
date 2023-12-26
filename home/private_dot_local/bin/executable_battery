@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+if type inxi &>/dev/null; then
+    exec inxi -xxxB
+fi
+
+exec upower -i /org/freedesktop/UPower/devices/battery_BAT0
+
