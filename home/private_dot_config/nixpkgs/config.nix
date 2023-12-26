@@ -11,7 +11,6 @@
           bitwarden-cli
           cargo
           chezmoi
-          cinnamon.nemo
           clippy
           curl
           delve
@@ -22,7 +21,6 @@
           foot
           fuzzel
           fzf
-          gammastep
           gcc
           gh
           git
