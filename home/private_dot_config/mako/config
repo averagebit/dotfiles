@@ -1,0 +1,38 @@
+# general
+actions=1
+default-timeout=5000
+ignore-timeout=1
+markup=1
+# output=
+sort=-time
+
+# ui
+height=110
+width=300
+border-radius=1
+border-size=2
+font=sans-serif 10
+# format=
+# hidden-format=
+# icon-path=
+icons=1
+max-icon-size=64
+max-visible=3
+layer=overlay
+
+# colors
+background-color=#1e1e2e
+border-color=#89b4fa
+progress-color=over #313244
+text-color=#cdd6f4
+
+[urgency=low]
+border-color=#585b70
+
+[urgency=normal]
+border-color=#89b4fa
+default-timeout=10000
+
+[urgency=high]
+border-color=#f38ba8
+default-timeout=0
