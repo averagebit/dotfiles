@@ -1,0 +1,54 @@
+{{ if (and (eq .chezmoi.os "linux") (not .headless) (ne .chezmoi.username "root")) -}}
+
+#!/usr/bin/env bash
+
+set -eu
+
+if type flatpak &>/dev/null; then
+    # Add flathub repo
+    flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+    # Install packages
+    declare -a flatpak_packages=(
+            "com.bitwarden.desktop"
+            "com.github.micahflee.torbrowser-launcher"
+            "com.github.tchx84.Flatseal"
+            "com.google.Chrome"
+            "com.spotify.Client"
+            "io.dbeaver.DBeaverCommunity"
+            "io.podman_desktop.PodmanDesktop"
+            "md.obsidian.Obsidian"
+            "org.flameshot.Flameshot"
+            "org.freecadweb.FreeCAD"
+            "org.mozilla.firefox"
+            "rest.insomnia.Insomnia"
+        )
+
+    # Global settings
+    for flatpak_package in "${flatpak_packages[@]}"; do
+        flatpak install --user -y "${flatpak_package}"
+        flatpak override --user --nosocket=x11 "${flatpak_package}"
+        flatpak override --user --nosocket=fallback-x11 "${flatpak_package}"
+        flatpak override --user --socket=wayland "${flatpak_package}"
+    done
+
+    flatpak override --user --filesystem="/home/${USER}/.themes:ro"
+    flatpak override --user --env=GTK_THEME="Catppuccin-Mocha-Standard-Blue-Dark"
+
+    # Firefox settings
+    xdg-mime default org.mozilla.firefox.desktop x-scheme-handler/https x-scheme-handler/http
+    xdg-settings set default-web-browser org.mozilla.firefox.desktop
+    flatpak override --user org.mozilla.firefox --filesystem="/home/${USER}/Downloads"
+    flatpak override --user --env=MOZ_ENABLE_WAYLAND=1 org.mozilla.firefox
+    flatpak override --user --env=MOZ_DBUS_REMOTE=1 org.mozilla.firefox
+
+    # Chrome settings
+    flatpak override --user com.google.Chrome --filesystem="/home/${USER}/.local/share/icons"
+    flatpak override --user com.google.Chrome --filesystem="/home/${USER}/.local/share/applications"
+    flatpak override --user com.google.Chrome --filesystem="/home/${USER}/Downloads"
+
+    # Obsidian settings
+    flatpak override --user --env=OBSIDIAN_USE_WAYLAND=1 md.obsidian.Obsidian
+fi
+{{ end -}}
+
