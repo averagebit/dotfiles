@@ -5,7 +5,7 @@ local M = {
 }
 
 M.config = function()
-    local icons = require("user.plugins.icons")
+    local icons = require("user.icons")
 
     require("gitsigns").setup({
         signs = {
@@ -45,8 +45,7 @@ M.config = function()
             follow_files = true,
         },
         attach_to_untracked = true,
-        current_line_blame_formatter =
-        "<author>, <author_time:%Y-%m-%d> - <summary>",
+        current_line_blame_formatter = "<author>, <author_time:%Y-%m-%d> - <summary>",
         update_debounce = 200,
         max_file_length = 40000,
         preview_config = {
