@@ -19,7 +19,6 @@
           fd
           fluxcd
           foot
-          fuzzel
           fzf
           gcc
           gh
@@ -44,7 +43,6 @@
           lm_sensors
           lsof
           lynx
-          mako
           mpv
           neofetch
           neovim
@@ -75,7 +73,6 @@
           stack
           strace
           stylua
-          swayimg
           sysfsutils
           terraform
           tmux
@@ -88,7 +85,6 @@
           ventoy
           vhs
           vial
-          vscode
           weechat
           wget
           whois
