@@ -33,6 +33,7 @@ function M.config()
             }),
             formatting.prettier.with({
                 extra_filetypes = { "toml", "svelte", "astro" },
+                -- extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" },
             }),
         },
         on_attach = function(client, buf)
@@ -42,7 +43,12 @@ function M.config()
                     group = augroup,
                     buffer = buf,
                     callback = function()
-                        vim.lsp.buf.format({ bufnr = buf })
+                        vim.lsp.buf.format({
+                            bufnr = buf,
+                            filter = function(client)
+                                return client.name == "null-ls"
+                            end,
+                        })
                     end,
                 })
             end

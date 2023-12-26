@@ -1,6 +1,6 @@
 local M = {
     "rktjmp/paperplanes.nvim",
-    commit = "d704b2e1e594b32d454cc7e0c5f2cf9b391e3cc1",
+    commit = "bd52c54c36ad2e9ac563ae1c6a4f6ed1f5faacd2",
     event = "VeryLazy",
 }
 

@@ -1,6 +1,4 @@
-local M = {}
-
-M.servers = {
+return {
     "ansiblels",
     "astro",
     "bashls",
@@ -33,5 +31,3 @@ M.servers = {
     "volar",
     "yamlls",
 }
-
-return M

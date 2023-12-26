@@ -13,15 +13,19 @@ vim.opt.rtp:prepend(lazypath)
 
 vim.g.mapleader = " "
 
-require("lazy").setup("user", {
-    install = { colorscheme = { require("user.colorscheme").name } },
-    defaults = {
-        lazy = true,
-        version = "57cce98dfdb2f2dd05a0567d89811e6d0505e13b",
+require("lazy").setup({
+    spec = LAZY_PLUGIN_SPEC,
+    install = {
+        colorscheme = { require("user.colorscheme").name },
     },
-    ui = { wrap = "true" },
-    checker = { enabled = true },
-    change_detection = { enabled = true },
+    ui = {
+        border = "rounded",
+        wrap = "true",
+    },
+    change_detection = {
+        enabled = true,
+        notify = false,
+    },
     debug = false,
     performance = {
         rtp = {

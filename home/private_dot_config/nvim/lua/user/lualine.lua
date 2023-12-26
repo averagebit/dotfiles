@@ -1,6 +1,6 @@
 local M = {
     "nvim-lualine/lualine.nvim",
-    commit = "0050b308552e45f7128f399886c86afefc3eb988",
+    commit = "7533b0ead663d80452210c0c089e5105089697e5",
     event = {
         "VimEnter",
         "InsertEnter",
@@ -12,28 +12,32 @@ local M = {
 }
 
 function M.config()
-    local status_ok, lualine = pcall(require, "lualine")
-    if not status_ok then
-        return
-    end
-
     local hide_in_width = function()
         return vim.fn.winwidth(0) > 80
     end
+
+    local icons = require("user.icons")
 
     local diagnostics = {
         "diagnostics",
         sources = { "nvim_diagnostic" },
         sections = { "error", "warn" },
-        symbols = { error = " ", warn = " " },
-        colored = false,
+        symbols = {
+            error = icons.diagnostics.BoldError,
+            warn = icons.diagnostics.BoldWarning,
+        },
+        colored = true,
         always_visible = true,
     }
 
     local diff = {
         "diff",
-        colored = false,
-        symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
+        colored = true,
+        symbols = {
+            added = icons.git.LineAdded,
+            modified = icons.git.LineModified,
+            removed = icons.git.LineRemoved,
+        },
         cond = hide_in_width,
     }
 
@@ -50,15 +54,17 @@ function M.config()
     local spaces = function()
         return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
     end
-    lualine.setup({
+    require("lualine").setup({
+        extensions = { "quickfix", "man", "fugitive" },
         options = {
             globalstatus = true,
             icons_enabled = true,
             theme = "auto",
-            component_separators = { left = "", right = "" },
-            section_separators = { left = "", right = "" },
-            disabled_filetypes = { "alpha", "dashboard" },
             always_divide_middle = true,
+            component_separators = { left = "", right = "" },
+            section_separators = { left = "", right = "" },
+            ignore_focus = { "NvimTree" },
+            disabled_filetypes = { "alpha", "dashboard" },
         },
         sections = {
             lualine_a = { "mode" },

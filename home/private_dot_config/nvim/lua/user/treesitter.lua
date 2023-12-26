@@ -1,23 +1,23 @@
 local M = {
     "nvim-treesitter/nvim-treesitter",
-    commit = "226c1475a46a2ef6d840af9caa0117a439465500",
-    event = "BufReadPost",
+    commit = "afa103385a2b5ef060596ed822ef63276ae88016",
+    build = ":TSUpdate",
+    event = { "BufReadPost", "BufNewFile" },
     dependencies = {
         {
             "JoosepAlviste/nvim-ts-context-commentstring",
-            commit = "729d83ecb990dc2b30272833c213cc6d49ed5214",
+            commit = "92e688f013c69f90c9bbd596019ec10235bc51de",
             event = "VeryLazy",
         },
         {
-            "nvim-tree/nvim-web-devicons",
-            commit = "986875b7364095d6535e28bd4aac3a9357e91bbe",
-            event = "VeryLazy",
+            "windwp/nvim-autopairs",
+            event = "InsertEnter",
+            commit = "f6c71641f6f183427a651c0ce4ba3fb89404fa9e",
         },
     },
 }
 
 function M.config()
-    local treesitter = require("nvim-treesitter")
     require("nvim-treesitter.configs").setup({
         -- A list of parser names, or "all"
         ensure_installed = {
@@ -68,6 +68,20 @@ function M.config()
             -- Instead of true it can also be a list of languages
             additional_vim_regex_highlighting = false,
         },
+
+        indent = { enable = true },
+
+        matchup = {
+            enable = { "astro " },
+            disable = { "lua" },
+        },
+
+        context_commentstring = {
+            enable = true,
+            enable_autocmd = false,
+        },
+
+        autopairs = { enable = true },
     })
 end
 
