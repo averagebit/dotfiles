@@ -10,7 +10,7 @@ set $up k
 set $right l
 
 # Terminal emulator
-set $term ~/.nix-profile/bin/foot
+set $term foot
 
 # Application launcher
 # Note: pass the final command to swaymsg so that the resulting window
