@@ -16,3 +16,8 @@
 .config/waybar/
 .config/swayimg/
 {{- end }}
+{{- if not .agekey }}
+.config/shell/personal
+.ssh/allowed_signers
+.ssh/config
+{{- end}}
