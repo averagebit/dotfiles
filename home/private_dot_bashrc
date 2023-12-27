@@ -115,7 +115,7 @@ export CDPATH=".:${REPOS}:${GHREPOS}:${GHREPOS}/${USER}:${GLREPOS}:${GLREPOS}/${
 # --- Prompt
 __prompt() {
     local username='\u' hostname='\h' character='❯' status="$?" status_color \
-        git_branch format directory_prefix directory directory_suffix \
+        git_branch format directory_prefix directory directory_suffix toolbox \
         o='\[\e[1;30m\]' r='\[\e[1;31m\]' g='\[\e[1;32m\]' \
         y='\[\e[1;33m\]' b='\[\e[1;34m\]' m='\[\e[1;35m\]' \
         c='\[\e[1;36m\]' w='\[\e[1;37m\]' d='\[\e[0m\]'
@@ -129,8 +129,9 @@ __prompt() {
     [[ "${PWD}" == "$HOME" ]] && directory="${b}~${d}"
     [[ "${PWD}" != $HOME* ]] && directory_suffix="🔒"
     [[ -n "${git_branch}" ]] && git_branch=" on${m}  ${git_branch}${d}"
+    [[ -f "/run/.toolboxenv" ]] && toolbox=" in${c} $(cat /run/.containerenv | grep -oP "(?<=name=\")[^\";]+")"
 
-    format="\n${directory_prefix}${directory}${directory_suffix}${git_branch} \n${status_color}${character} ${d}"
+    format="\n${directory_prefix}${directory}${directory_suffix}${git_branch}${toolbox} \n${status_color}${character} ${d}"
     PS1="${format}"
 }
 
