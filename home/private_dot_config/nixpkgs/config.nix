@@ -76,6 +76,7 @@
           sysfsutils
           terraform
           tmux
+          toolbox
           traceroute
           tree
           tree-sitter
