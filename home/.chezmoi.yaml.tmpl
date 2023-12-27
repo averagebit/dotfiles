@@ -2,9 +2,9 @@
 {{- $interactive := stdinIsATTY -}}
 
 {{- /* Template file for chezmoi config file */ -}}
+{{- $agekey := false -}}{{/* true if this machine has agekey to decrypt secret */}}
 {{- $headless := false -}}{{/* true if this machine does not have a screen and keyboard */}}
 {{- $swaywm := false -}}{{/* true if this machine is using swaywm */}}
-{{- $agekey := false -}}{{/* true if this machine has agekey to decrypt secret */}}
 
 {{- $hostname := .chezmoi.hostname -}}
 {{- if eq $hostname "echo" -}}
@@ -12,20 +12,20 @@
 {{-   $swaywm = true -}}
 {{-   $agekey = true -}}
 {{- end -}}
-{{- if eq $hostname "stud" -}}
-{{-   $headless = false -}}
-{{-   $swaywm = false -}}
-{{-   $agekey = true -}}
+{{- if hasKey . "agekey" -}}
+{{-   $agekey = .agekey -}}
+{{- else if $interactive -}}
+{{-   $agekey = promptBool "agekey" -}}
 {{- end -}}
 {{- if hasKey . "headless" -}}
 {{-   $headless = .headless -}}
 {{- else if $interactive -}}
 {{-   $headless = promptBool "headless" -}}
 {{- end -}}
-{{- if hasKey . "agekey" -}}
-{{-   $agekey = .agekey -}}
+{{- if hasKey . "swaywm" -}}
+{{-   $swaywm = .swaywm -}}
 {{- else if $interactive -}}
-{{-   $agekey = promptBool "agekey" -}}
+{{-   $swaywm = promptBool "swaywm" -}}
 {{- end -}}
 
 {{- if $interactive -}}
@@ -33,9 +33,9 @@
 {{- end -}}
 
 data:
+  agekey: {{ $agekey }}
   headless: {{ $headless }}
   swaywm: {{ $swaywm }}
-  agekey: {{ $agekey }}
 
 sourceDir: /home/{{ .chezmoi.username }}/.dot
 format: yaml
