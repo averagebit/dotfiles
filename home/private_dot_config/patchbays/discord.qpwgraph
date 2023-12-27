@@ -1,0 +1,70 @@
+<!DOCTYPE patchbay>
+<patchbay name="discord" version="0.6.1">
+ <items>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="REAPER" port="REAPER:out2"/>
+   <input node="Steinberg UR22mkII  Analog Stereo" port="Steinberg UR22mkII:playback_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="REAPER" port="REAPER:out1"/>
+   <input node="Virtual Source" port="Virtual Source:input_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Virtual Source" port="Virtual Source:capture_FL"/>
+   <input node="Firefox" port="Firefox:input_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="REAPER" port="REAPER:out2"/>
+   <input node="Virtual Source" port="Virtual Source:input_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Firefox" port="Firefox:output_FL"/>
+   <input node="Virtual Sink" port="Virtual Sink:playback_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Steinberg UR22mkII  Analog Stereo" port="Steinberg UR22mkII:capture_FL"/>
+   <input node="REAPER" port="REAPER:in1"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Firefox-1" port="Firefox:output_FR"/>
+   <input node="Virtual Sink" port="Virtual Sink:playback_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Firefox-1" port="Firefox:output_FL"/>
+   <input node="Virtual Sink" port="Virtual Sink:playback_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="spotify" port="spotify:output_FR"/>
+   <input node="Virtual Sink" port="Virtual Sink:playback_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Steinberg UR22mkII  Analog Stereo" port="Steinberg UR22mkII:capture_FR"/>
+   <input node="REAPER" port="REAPER:in2"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Virtual Sink" port="Virtual Sink:monitor_FL"/>
+   <input node="Steinberg UR22mkII  Analog Stereo" port="Steinberg UR22mkII:playback_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="REAPER" port="REAPER:out1"/>
+   <input node="Steinberg UR22mkII  Analog Stereo" port="Steinberg UR22mkII:playback_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Virtual Sink" port="Virtual Sink:monitor_FR"/>
+   <input node="Steinberg UR22mkII  Analog Stereo" port="Steinberg UR22mkII:playback_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="spotify" port="spotify:output_FL"/>
+   <input node="Virtual Sink" port="Virtual Sink:playback_FL"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Virtual Source" port="Virtual Source:capture_FR"/>
+   <input node="Firefox" port="Firefox:input_FR"/>
+  </item>
+  <item node-type="pipewire" port-type="pipewire-audio">
+   <output node="Firefox" port="Firefox:output_FR"/>
+   <input node="Virtual Sink" port="Virtual Sink:playback_FR"/>
+  </item>
+ </items>
+</patchbay>
+
