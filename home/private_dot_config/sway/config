@@ -1,5 +1,11 @@
 # ----------------------------------------------------------------------
 # --- Variables
+#
+# Applications
+set $term foot
+set $menu fuzzel
+
+# Mod keys
 set $alt Mod1
 set $mod Mod4
 
@@ -8,15 +14,6 @@ set $left h
 set $down j
 set $up k
 set $right l
-
-# Terminal emulator
-set $term foot
-
-# Application launcher
-# Note: pass the final command to swaymsg so that the resulting window
-# can be opened on the original workspace that the command was run on.
-# set $menu dmenu_path | dmenu | xargs swaymsg exec --
-set $menu fuzzel
 
 # Workspaces
 set $workspace1   1
@@ -73,15 +70,15 @@ set $flamingo "#f2cdcd"
 set $rosewater "#f5e0dc"
 
 # ----------------------------------------------------------------------
-# --- XWayland (enabled|disabled)
-# xwayland disable
-
-# ----------------------------------------------------------------------
 # --- Startup applications
 exec mako
 exec gammastep
 exec nm-applet --indicator
 exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+
+# ----------------------------------------------------------------------
+# --- XWayland (enabled|disabled)
+# xwayland disable
 
 # ----------------------------------------------------------------------
 # --- Output configuration
@@ -112,7 +109,8 @@ output * bg ~/.local/share/wallpapers/space.png fill
 # ----------------------------------------------------------------------
 # --- Input configuration
 #
-# Keyboard settings
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Read `man 5 sway-input` for more information about this section.
 input type:keyboard {
     xkb_layout us
     repeat_rate 40
@@ -130,9 +128,6 @@ input type:touchpad {
     accel_profile flat
     pointer_accel -0.1
 }
-
-# You can get the names of your inputs by running: swaymsg -t get_inputs
-# Read `man 5 sway-input` for more information about this section.
 
 # ----------------------------------------------------------------------
 # --- Keymap
@@ -172,12 +167,6 @@ bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
-
-# Drag floating windows by holding down $mod and left mouse button.
-# Resize them with right mouse button + $mod. Despite the name, also
-# works for non-floating windows. Change normal to inverse to use left
-# mouse button for resizing and right mouse button for dragging.
-floating_modifier $mod normal
 
 # Switch to {workspace}
 bindsym $mod+1 workspace $workspace1
@@ -227,22 +216,22 @@ bindsym $mod+Shift+F10 move container to workspace $workspaceF10
 bindsym $mod+Shift+p exec --no-startup-id flameshot gui
 
 # Backlight
-bindsym XF86MonBrightnessUp exec brightnessctl -d gmux_backlight set 5%+
-bindsym XF86MonBrightnessDown exec brightnessctl -d gmux_backlight set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 
 # Multimedia
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_SINK@ toggle
-bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
-bindsym XF86AudioRaiseVolume exec wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
 bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
 
-# Global push to talk
+# Global push to talk and mute
 # (0=unmute, 1=mute, toggle=flip current state)
 bindsym XF86Launch5 exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ 0
 bindsym --release XF86Launch5 exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ 1
+bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 
 # ----------------------------------------------------------------------
 # --- Layouts
@@ -284,8 +273,6 @@ bindsym $mod+minus scratchpad show
 
 # ----------------------------------------------------------------------
 # --- Resizing
-#
-# Enable resize mode
 bindsym $mod+r mode "resize"
 
 mode "resize" {
