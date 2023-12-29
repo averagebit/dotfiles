@@ -54,6 +54,7 @@ function M.config()
     local spaces = function()
         return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
     end
+
     require("lualine").setup({
         extensions = { "quickfix", "man", "fugitive" },
         options = {
@@ -62,7 +63,7 @@ function M.config()
             theme = "auto",
             always_divide_middle = true,
             component_separators = { left = "", right = "" },
-            section_separators = { left = "", right = "" },
+            section_separators = { left = "", right = "" },
             ignore_focus = { "NvimTree" },
             disabled_filetypes = { "alpha", "dashboard" },
         },
