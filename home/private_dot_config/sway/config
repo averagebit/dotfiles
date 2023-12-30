@@ -84,7 +84,7 @@ exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSO
 # --- Output configuration
 #
 # Default wallpaper (more are available in /usr/share/backgrounds/sway/)
-output * bg ~/.local/share/wallpapers/space.png fill
+output * bg ~/.local/share/wallpapers/mountain-mocha-crust.png fill
 
 # Example configuration:
 #
