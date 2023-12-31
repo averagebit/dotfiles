@@ -10,26 +10,23 @@ if type flatpak &>/dev/null; then
 
     # Install packages
     declare -a flatpak_packages=(
-            "com.bitwarden.desktop"
             "com.github.micahflee.torbrowser-launcher"
             "com.github.tchx84.Flatseal"
             "com.google.Chrome"
             "com.spotify.Client"
+            "com.usebottles.bottles"
+            "fm.reaper.Reaper"
             "io.dbeaver.DBeaverCommunity"
-            "io.podman_desktop.PodmanDesktop"
             "md.obsidian.Obsidian"
             "org.flameshot.Flameshot"
             "org.freecadweb.FreeCAD"
             "org.mozilla.firefox"
-            "rest.insomnia.Insomnia"
+            "org.videolan.VLC"
         )
 
-    # Global settings
+    # Install packages
     for flatpak_package in "${flatpak_packages[@]}"; do
         flatpak install --user -y "${flatpak_package}"
-        flatpak override --user --nosocket=x11 "${flatpak_package}"
-        flatpak override --user --nosocket=fallback-x11 "${flatpak_package}"
-        flatpak override --user --socket=wayland "${flatpak_package}"
     done
 
     flatpak override --user --filesystem="/home/${USER}/.themes:ro"
@@ -49,6 +46,19 @@ if type flatpak &>/dev/null; then
 
     # Obsidian settings
     flatpak override --user --env=OBSIDIAN_USE_WAYLAND=1 md.obsidian.Obsidian
+    flatpak override --user --socket=wayland md.obsidian.Obsidian
+
+    # Flatseal settings
+    flatpak override --user --socket=wayland com.github.tchx84.Flatseal
+
+    # Bottles settings
+    flatpak override --user --socket=wayland com.usebottles.bottles
+
+    # DBeaver settings
+    flatpak override --user --socket=wayland io.dbeaver.DBeaverCommunity
+
+    # Flameshot settings
+    flatpak override --user --socket=wayland org.flameshot.Flameshot
 fi
 {{ end -}}
 
